@@ -1,0 +1,26 @@
+package io.github.yu.base.service;
+
+
+import io.github.yu.base.mapper.BaseMapper;
+
+import java.util.List;
+
+public interface BaseService<T, Q extends T> {
+    void insert(T t);
+
+    void deleteById(Long id);
+
+    void deleteByName(String name);
+
+    void updateById(T t);
+
+    T getById(Long id);
+
+    T getByName(String name);
+
+    List<T> list();
+
+    List<T> pageList();
+
+    List<T> pageListByQuery(Q query);
+}
