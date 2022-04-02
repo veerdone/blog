@@ -130,6 +130,16 @@
         where user_id = #{userId}
     </update>
 
+    <select id="getByAccount" resultMap="user">
+        <include refid="common-select" />
+        where account = #{account}
+    </select>
+
+    <select id="getByTelephone" resultMap="user">
+        <include refid="common-select" />
+        where telephone = #{telephone}
+    </select>
+
     <select id="getById" resultMap="user">
         <include refid="common-select" />
         where user_id = #{userId}
@@ -165,7 +175,7 @@
 
         </if>
     </sql>
-    <resultMap id="user" type="User">
+    <resultMap id="user" type="io.github.yu.blog.model.User">
         <id property="userId" column="user_id" />
         <result property="account" column="account"/>
         <result property="username" column="username" />

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public class BaseController<T, Q extends T, S extends BaseService<T, Q>> {
+public abstract class BaseController<T, Q extends T, S extends BaseService<T, Q>> {
     @Autowired
-    private S service;
+    protected S service;
 
     @PostMapping("/insert")
     public void insert(@RequestBody T t) {

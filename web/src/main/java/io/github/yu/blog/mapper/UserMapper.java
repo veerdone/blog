@@ -4,6 +4,10 @@ import io.github.yu.base.mapper.BaseMapper;
 import io.github.yu.blog.model.User;
 import io.github.yu.blog.model.UserQuery;
 
-public interface UserMapper extends BaseMapper<User, UserQuery> {
+import java.util.List;
 
+public interface UserMapper extends BaseMapper<User, UserQuery> {
+    User getByAccount(String account);
+
+    User getByTelephone(String telephone);
 }

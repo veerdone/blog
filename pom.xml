@@ -11,14 +11,19 @@
     <modules>
         <module>web</module>
         <module>base</module>
+        <module>common</module>
     </modules>
 
     <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <java.version>1.8</java.version>
         <spring.boot.version>2.3.7.RELEASE</spring.boot.version>
         <mybatis.version>2.1.3</mybatis.version>
         <druid.version>1.2.8</druid.version>
         <lombok.version>1.18.12</lombok.version>
+        <pagehelper.version>1.3.0</pagehelper.version>
+        <hutool.version>5.7.20</hutool.version>
     </properties>
 
 
@@ -49,6 +54,20 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-crypto</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+
 
 
         </dependencies>
