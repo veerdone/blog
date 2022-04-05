@@ -13,3 +13,5 @@ mybatis:
 blog:
   password:
     key: springbootyublog
+ip:
+  key: VVKBZ-KRVK4-XY7UB-D32WU-4YZO2-NCFJ3

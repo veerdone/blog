@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.yu.blog.mapper.PostTagMapper">
+    <select id="getById" resultMap="postTag">
+        <include refid="common-select" />
+        where tag_id = #{id}
+    </select>
+
+
+    <sql id="common-select">
+        select tag_id, tagName, sortId from blog_post_tag
+    </sql>
+
+    <resultMap id="postTag" type="io.github.yu.blog.model.PostTag">
+        <id property="tagId" column="tag_id" />
+        <result property="tagName" column="tag_name" />
+        <result property="sortId" column="sort_id" />
+    </resultMap>
+</mapper>

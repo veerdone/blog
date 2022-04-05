@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 文章
+ * table: blog_post
  */
 @Data
 public class Post {

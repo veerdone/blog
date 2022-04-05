@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+/**
+ * 文章服务
+ */
 @Service
 public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper>
         implements PostService {

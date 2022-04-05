@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * 文章审核服务
+ */
 @Service
 public class PostReviewServiceImpl extends BaseServiceImpl<PostReview, PostReview, PostReviewMapper>
         implements PostReviewService {

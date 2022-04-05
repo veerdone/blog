@@ -6,6 +6,10 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
+/**
+ * 用户
+ * table: blog_user
+ */
 @Data
 public class User {
     // 用户id

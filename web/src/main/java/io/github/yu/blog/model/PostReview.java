@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * 文章审核
+ * table: post_review
+ */
 @Data
 public class PostReview {
     // 审核id

@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * 用户服务
+ */
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper>
         implements UserService {

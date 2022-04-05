@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.yu.blog.mapper.UserFocusMapper">
+
+
+
+
+
+
+
+
+    <sql id="common-select">
+        select focus_id, user_idm user_focus_id, focus_time
+        from blog_user_focus
+    </sql>
+
+    <resultMap id="userFocus" type="io.github.yu.blog.model.UserFocus">
+        <id property="focusId" column="focus_id" />
+        <result property="userId" column="user_id" />
+        <result property="userFocusId" column="user_focus_id" />
+        <result property="focusTime" column="focus_time" />
+    </resultMap>
+</mapper>
