@@ -81,14 +81,68 @@
     </insert>
     
     
-    
-    
-    
-    
-    
+    <delete id="deleteById">
+        delete from blog_post
+        where post_id = #{id}
+    </delete>
+
+    <update id="updateById">
+        update blog_post
+        <set>
+            <if test="postTitle != null">
+                post_title = #{postTitle},
+            </if>
+            <if test="postContent != null">
+                post_content = #{postContent},
+            </if>
+            <if test="postViews != null">
+                post_views = #{postViews},
+            </if>
+            <if test="postLikes != null">
+                post_likes = #{postLikes},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="titlePicture != null">
+                title_picture = #{titlePicture},
+            </if>
+            <if test="postTags != null">
+                post_tags = #{postTags,typeHandler=io.github.yu.common.handler.ListTypeHandler}
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime}
+            </if>
+        </set>
+        where post_id = #{postId}
+    </update>
+
+    <select id="listByOrder" resultMap="post">
+        <include refid="common-select" />
+        <if test="query != null">
+            order by #{query.column} #{query.order}
+        </if>
+    </select>
+
+    <select id="getById" resultMap="post">
+        <include refid="common-select" />
+        where post_id = #{id}
+    </select>
 
     <select id="list" resultMap="post">
         <include refid="common-select" />
+    </select>
+
+    <select id="pageList" resultMap="post">
+        <include refid="common-select" />
+    </select>
+
+    <select id="pageListByQuery" resultMap="post">
+        <include refid="common-select" />
+        <include refid="query" />
     </select>
     
     
@@ -97,6 +151,19 @@
         select post_id, post_title, post_content, user_id, post_views, post_likes,
         create_time, update_time, status, sort, title_picture, post_tags
         from blog_post
+    </sql>
+
+    <sql id="query">
+        <if test="query != null">
+            <where>
+                <if test="query.startTime != null and query.endTime != null">
+                    create_time between #{query.startTime} and #{query.endTime}
+                </if>
+            </where>
+            <if test="query.column != null and query.order != null">
+                order by #{query.column} #{query.order}
+            </if>
+        </if>
     </sql>
     
     

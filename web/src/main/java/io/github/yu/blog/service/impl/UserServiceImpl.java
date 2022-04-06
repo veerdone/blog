@@ -2,8 +2,10 @@ package io.github.yu.blog.service.impl;
 
 import io.github.yu.base.service.impl.BaseServiceImpl;
 import io.github.yu.blog.mapper.UserMapper;
+import io.github.yu.blog.model.LoginHistory;
 import io.github.yu.blog.model.User;
 import io.github.yu.blog.model.UserQuery;
+import io.github.yu.blog.service.LoginHistoryService;
 import io.github.yu.blog.service.UserService;
 import io.github.yu.common.constant.ExceptionEnum;
 import io.github.yu.common.exception.AccountExistException;
@@ -12,6 +14,7 @@ import io.github.yu.common.exception.TelephoneExistException;
 import io.github.yu.common.exception.UserDisableException;
 import io.github.yu.common.util.IdUtil;
 import io.github.yu.common.util.PassEncode;
+import io.github.yu.common.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
         implements UserService {
     @Autowired
     private PassEncode passEncode;
+
+    @Autowired
+    private LoginHistoryService loginHistoryService;
 
     @Override
     public void insert(User user) {
@@ -50,18 +56,31 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
     }
 
     @Override
-    public void login(User user) {
+    public String loginByAccount(User user) {
         String account = user.getAccount();
-        User databaseUser = null;
-        if (null == account || account.equals("")) {
-            throw new AccountOrPassErrorException();
-        }
-        databaseUser = super.mapper.getByAccount(account);
+        User databaseUser = super.mapper.getByAccount(account);
+        LoginHistory history = validateUser(databaseUser, user);
+        loginHistoryService.insert(history);
+        return databaseUser.getAccount();
+    }
+
+    @Override
+    public String loginByTelephone(User user) {
+        User databaseUser = super.mapper.getByTelephone(user.getTelephone());
+        LoginHistory history = validateUser(databaseUser, user);
+        loginHistoryService.insert(history);
+        return databaseUser.getAccount();
+    }
+
+    @Override
+    public User getCurrentUser() {
+        String account = RequestUtil.getFromHeader("account");
+        return super.mapper.getByAccount(account);
+    }
+
+    private LoginHistory validateUser(User databaseUser, User user) {
         if (null == databaseUser) {
-            databaseUser = super.mapper.getByTelephone(account);
-            if (null == databaseUser) {
-                throw new AccountOrPassErrorException();
-            }
+            throw new AccountOrPassErrorException();
         }
         if (!passEncode.match(databaseUser.getPassword(), user.getPassword())) {
             throw new AccountOrPassErrorException();
@@ -69,5 +88,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
         if (databaseUser.getStatus() == 1) {
             throw new UserDisableException();
         }
+        LoginHistory history = new LoginHistory();
+        history.setUserId(databaseUser.getUserId());
+        history.setUserAccount(databaseUser.getAccount());
+        return history;
     }
+
 }

@@ -7,11 +7,11 @@
         values (
         #{id},
         #{userId},
-        #{user_account},
-        #{login_time},
-        #{login_site},
-        #{login_ip},
-        #{browser_name}
+        #{userAccount},
+        #{loginTime},
+        #{loginSite},
+        #{loginIp},
+        #{browserName}
         )
     </insert>
 

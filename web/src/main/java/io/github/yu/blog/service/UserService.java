@@ -7,5 +7,9 @@ import io.github.yu.blog.model.UserQuery;
 public interface UserService extends BaseService<User, UserQuery> {
     User getByAccount(String account);
 
-    void login(User user);
+    String loginByAccount(User user);
+
+    String loginByTelephone(User user);
+
+    User getCurrentUser();
 }

@@ -1,6 +1,7 @@
 package io.github.yu.blog.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,18 +15,23 @@ import java.time.LocalDateTime;
 public class User {
     // 用户id
     private Long userId;
-    @NotEmpty(message = "账号不能为空")
+
     // 用户账号
+    @NotEmpty(message = "账号不能为空")
     private String account;
-    @NotEmpty(message = "用户名不能为空")
+
     // 用户名
+    @NotEmpty(message = "用户名不能为空")
     private String username;
-    @NotEmpty(message = "密码不能为空")
+
     // 用户密码
+    @NotEmpty(message = "密码不能为空")
     private String password;
-    @NotEmpty(message = "手机号不能为空")
+
     // 用户手机号
+    @NotEmpty(message = "手机号不能为空")
     private String telephone;
+
     // 用户性别，0代码男，1代表女
     private Boolean sex;
     // 粉丝数

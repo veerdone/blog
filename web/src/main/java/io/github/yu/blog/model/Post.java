@@ -3,6 +3,7 @@ package io.github.yu.blog.model;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,11 +33,12 @@ public class Post {
     private LocalDateTime updateTime;
     // 状态,0表示公开，1表示仅自己可见，2表示审核中，3表示审核失败
     private Integer status;
-    @NotEmpty(message = "请选择文章分类")
+    @NotNull(message = "文章分类不能为空")
     // 分类id
     private Long sort;
     // 标题图片
     private String titlePicture;
     // 文章标签id
+    @NotEmpty(message = "文章标签不能为空")
     private List<String> postTags;
 }

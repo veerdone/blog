@@ -29,8 +29,8 @@ public class ResponseAdvice implements ResponseBodyAdvice {
             List list = (List) o;
             PageInfo pageInfo = new PageInfo(list);
             return ListResult.result(pageInfo.getTotal(), list);
-        } else if (o instanceof String) {
-            return BaseResult.result(HttpStatus.OK.value(), (String) o);
+        } else if(o instanceof BaseResult) {
+            return o;
         } else {
             return ObjectResult.result(o);
         }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -30,6 +31,7 @@ public class LoginHistoryServiceImpl extends BaseServiceImpl<LoginHistory, Login
     private RestTemplate restTemplate;
 
     @Override
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
     public void insert(LoginHistory loginHistory) {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
