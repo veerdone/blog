@@ -50,14 +50,52 @@
         )
     </insert>
 
+    <delete id="deleteById">
+        delete from blog_post_review
+        where review_id = #{review_id}
+    </delete>
 
 
+    <update id="updateById">
+        update blog_post_review
+        <set>
+            <if test="reviewUsername != null">
+                review_username = #{reviewUsername},
+            </if>
+            <if test="reviewStatus != null">
+                review_status = #{reviewStatus},
+            </if>
+            <if test="reviewFailReason != null">
+                review_fail_reason = #{reviewFailReason},
+            </if>
+            <if test="reviewUpdateTime != null">
+                review_update_time = #{reviewUpdateTime}
+            </if>
+        </set>
+        where review_id = #{reviewId}
+    </update>
 
+    <select id="getById" resultMap="postReview">
+        <include refid="select" />
+        where review_id = #{id}
+    </select>
 
-
-
-
-
+    <select id="pageListByQuery" resultMap="postReview">
+        <include refid="select" />
+        <if test="query != null">
+            <where>
+                <if test="query.reviewStatus != null">
+                    review_status = #{query.reviewStatus}
+                </if>
+            </where>
+        </if>
+    </select>
+    
+    <sql id="select">
+        select review_id, review_username, review_post_id,
+        review_status,review_fail_reason, review_update_time
+        from blog_post_review
+    </sql>
 
 
     <resultMap id="postReview" type="io.github.yu.blog.model.PostReview">
