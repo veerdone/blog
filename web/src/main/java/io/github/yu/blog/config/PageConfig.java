@@ -1,14 +1,12 @@
 package io.github.yu.blog.config;
 
 import com.github.pagehelper.PageHelper;
+import io.github.yu.common.util.RequestUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
@@ -16,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 配置分页
+ */
 @Aspect
 @Component
 public class PageConfig {
@@ -38,9 +39,12 @@ public class PageConfig {
         return joinPoint.proceed();
     }
 
+    /**
+     * 从请求头获取分页参数
+     * @return 分页参数
+     */
     public List<Integer> getParamFromHeader() {
-        RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) attributes).getRequest();
+        HttpServletRequest request = RequestUtil.getRequest();
         String startPage = request.getParameter("startPage");
         String pageSize = request.getParameter("pageSize");
         if (startPage != null && pageSize != null) {
@@ -52,6 +56,13 @@ public class PageConfig {
         return Collections.emptyList();
     }
 
+    /**
+     * 从请求体获取分页参数
+     * @param o 请求体
+     * @return 分页参数
+     * @throws NoSuchFieldException 反射异常
+     * @throws IllegalAccessException 反射异常
+     */
     public List<Integer> getParamFromBody(Object o) throws NoSuchFieldException, IllegalAccessException {
         Class<?> c = o.getClass();
         Field startPage = c.getDeclaredField("startPage");

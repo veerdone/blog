@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 文章mapper
+ */
 public interface PostMapper extends BaseMapper<Post, PostQuery> {
 
     @Override

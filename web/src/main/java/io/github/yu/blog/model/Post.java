@@ -15,11 +15,13 @@ import java.util.List;
 public class Post {
     // 文章id
     private Long postId;
-    @NotEmpty(message = "文章标题不能为空")
+
     // 文章标题
+    @NotEmpty(message = "文章标题不能为空")
     private String postTitle;
-    @NotEmpty(message = "文章内容不能为空")
+
     // 文章内容
+    @NotEmpty(message = "文章内容不能为空")
     private String postContent;
     // 文章作者id
     private Long userId;
@@ -33,8 +35,9 @@ public class Post {
     private LocalDateTime updateTime;
     // 状态,0表示公开，1表示仅自己可见，2表示审核中，3表示审核失败
     private Integer status;
-    @NotNull(message = "文章分类不能为空")
+
     // 分类id
+    @NotNull(message = "文章分类不能为空")
     private Long sort;
     // 标题图片
     private String titlePicture;

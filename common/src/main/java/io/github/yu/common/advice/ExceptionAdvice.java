@@ -20,24 +20,16 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(BindException.class)
     public BaseResult bindExceptionHandle(BindException e, HttpServletResponse response) {
-        BindingResult result = e.getBindingResult();
-        StringBuilder builder = new StringBuilder();
-        List<FieldError> fieldErrors = result.getFieldErrors();
-        fieldErrors.forEach(fieldError -> {
-            builder.append(fieldError.getDefaultMessage()).append("!");
-        });
-        return BaseResult.result(HttpStatus.BAD_REQUEST.value(), builder.toString());
+        String message = getMessage(e);
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        return BaseResult.result(HttpStatus.BAD_REQUEST.value(), message);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public BaseResult MethodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e, HttpServletResponse response) {
-        BindingResult result = e.getBindingResult();
-        StringBuilder builder = new StringBuilder();
-        List<FieldError> fieldErrors = result.getFieldErrors();
-        fieldErrors.forEach(fieldError -> {
-            builder.append(fieldError.getDefaultMessage()).append("!");
-        });
-        return BaseResult.result(HttpStatus.BAD_REQUEST.value(), builder.toString());
+        String message = getMessage(e);
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        return BaseResult.result(HttpStatus.BAD_REQUEST.value(), message);
     }
 
     @ExceptionHandler({RuntimeException.class, Exception.class})
@@ -56,5 +48,20 @@ public class ExceptionAdvice {
         log.error("{}", error.getMessage());
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return BaseResult.result(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
+    }
+
+    private String getMessage(Exception e) {
+        BindingResult result = null;
+        if (e instanceof BindException) {
+            result = ((BindException) e).getBindingResult();
+        } else if (e instanceof MethodArgumentNotValidException) {
+            result = ((MethodArgumentNotValidException) e).getBindingResult();
+        }
+        StringBuilder builder = new StringBuilder();
+        List<FieldError> fieldErrors = result.getFieldErrors();
+        fieldErrors.forEach(fieldError -> {
+            builder.append(fieldError.getDefaultMessage()).append("!");
+        });
+        return builder.toString();
     }
 }

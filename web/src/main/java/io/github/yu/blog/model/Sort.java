@@ -8,6 +8,8 @@ import lombok.Data;
  */
 @Data
 public class Sort {
+    // 分类id
     private Long sortId;
+    // 分类名称
     private String sortName;
 }

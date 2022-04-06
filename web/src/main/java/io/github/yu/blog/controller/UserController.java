@@ -25,7 +25,7 @@ public class UserController extends BaseController<User, UserQuery, UserService>
         return this.service.getByAccount(account);
     }
 
-    @PostMapping(value = "/loginByAccount", produces = {"application/json;charset=UTF-8"})
+    @PostMapping("/loginByAccount")
     public ObjectResult loginByAccount(@RequestBody User user) {
         if (StrUtil.isEmpty(user.getAccount())) {
             throw new AccountOrPassErrorException();
@@ -37,7 +37,7 @@ public class UserController extends BaseController<User, UserQuery, UserService>
         return ObjectResult.result(s);
     }
 
-    @PostMapping(value = "/loginByTelephone", produces = {"application/json;charset=UTF-8"})
+    @PostMapping("/loginByTelephone")
     public ObjectResult loginByTelephone(@RequestBody User user) {
         if (StrUtil.isEmpty(user.getTelephone())) {
             throw new AccountOrPassErrorException();
