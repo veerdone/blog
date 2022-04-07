@@ -120,12 +120,11 @@
         where post_id = #{postId}
     </update>
 
-    <select id="listByOrder" resultMap="post">
-        <include refid="common-select" />
-        <if test="query != null">
-            order by #{query.column} #{query.order}
-        </if>
-    </select>
+    <update id="updateViewsByPostId">
+        update blog_post
+        set post_views = post_views + #{count}
+        where post_id = #{postId}
+    </update>
 
     <select id="getById" resultMap="post">
         <include refid="common-select" />
@@ -144,29 +143,40 @@
         <include refid="common-select" />
         <include refid="query" />
     </select>
-    
-    
-    
+
+    <select id="pageListVo" resultMap="postVo">
+        <include refid="common-select" />
+    </select>
+
+    <select id="pageListVoBySortId" resultMap="postVo">
+        <include refid="common-select" />
+        where sort_id = #{id}
+    </select>
+
+    <select id="pageListVoByTagId" resultMap="postVo">
+        <include refid="common-select" />
+        where FIND_IN_SET(#{id}, post_tags)
+    </select>
+
     <sql id="common-select">
         select post_id, post_title, post_content, user_id, post_views, post_likes,
-        create_time, update_time, status, sort, title_picture, post_tags
+        create_time, update_time, status, sort_id, title_picture, post_tags
         from blog_post
     </sql>
 
     <sql id="query">
         <if test="query != null">
-            <where>
-                <if test="query.startTime != null and query.endTime != null">
+            <if test="query.startTime != null and query.endTime != null">
+                <where>
                     create_time between #{query.startTime} and #{query.endTime}
-                </if>
-            </where>
+                </where>
+            </if>
             <if test="query.column != null and query.order != null">
                 order by #{query.column} #{query.order}
             </if>
         </if>
     </sql>
-    
-    
+
     <resultMap id="post" type="io.github.yu.blog.model.Post">
         <id property="postId" column="post_id" />
         <result property="postTitle" column="post_title" />
@@ -177,7 +187,22 @@
         <result property="createTime" column="create_time" />
         <result property="updateTime" column="update_time" />
         <result property="status" column="status" />
-        <result property="sort" column="sort" />
+        <result property="sortId" column="sort_id" />
+        <result property="titlePicture" column="title_picture" />
+        <result property="postTags" column="post_tags" typeHandler="io.github.yu.common.handler.ListTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="postVo" type="postVo">
+        <id property="postId" column="post_id" />
+        <result property="postTitle" column="post_title" />
+        <result property="postContent" column="post_content" />
+        <result property="userId" column="user_id" />
+        <result property="postViews" column="post_views" />
+        <result property="postLikes" column="post_likes" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="status" column="status" />
+        <result property="sortId" column="sort_id" />
         <result property="titlePicture" column="title_picture" />
         <result property="postTags" column="post_tags" typeHandler="io.github.yu.common.handler.ListTypeHandler"/>
     </resultMap>

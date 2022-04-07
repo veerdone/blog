@@ -39,6 +39,7 @@ public class ExceptionAdvice {
             return BaseResult.result(((BaseException) e).getStatus().value(), e.getMessage());
         }
         log.warn("{}", e.getMessage());
+        log.warn("", e);
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return BaseResult.result(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统繁忙");
     }

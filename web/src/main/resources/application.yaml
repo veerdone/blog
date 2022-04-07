@@ -10,6 +10,7 @@ spring:
       url: jdbc:mysql://localhost:3306/blog?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: io.github.yu.**.model
 blog:
   password:
     key: springbootyublog

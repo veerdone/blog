@@ -2,12 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.yu.blog.mapper.BrowseHistoryMapper">
+    <insert id="insert">
+        insert into post_browse_history
+        values (#{id}, #{userId}, #{postId}, #{browseTime}, #{lastBrowseTime})
+    </insert>
 
+    <update id="updateById">
+        update post_browse_history
+        set last_browse_time = #{last_browse_time}
+        where id = #{id}
+    </update>
+
+    <select id="listPostIdByYesterdayBrowse" resultType="java.lang.Long">
+        select distinct post_id from post_browse_history
+        where TO_DAYS(NOW()) - TO_DAYS(browse_time) &lt;= 1
+        and TO_DAYS(NOW()) - TO_DAYS(browse_time) &gt; 0
+    </select>
+
+    <select id="countByPostId" resultType="java.lang.Integer">
+        select count(*) from post_browse_history
+        where post_id = #{id}
+    </select>
+    
+    <select id="countByPostIdYesterday" resultType="Integer">
+        select count(*) from post_browse_history
+        where
+        post_id = #{id}
+        and TO_DAYS(NOW()) - TO_DAYS(browse_time) &lt;= 1
+        and TO_DAYS(NOW()) - TO_DAYS(browse_time) &gt; 0
+    </select>
+
+    <select id="getByUserIdAndPostId" resultMap="browseHistory">
+        <include refid="select" />
+        where user_id = #{userId} and post_id = #{postId}
+    </select>
+
+    <sql id="select">
+        select id, user_id, post_id, browse_time, last_browse_time from post_browse_history
+    </sql>
 
     <resultMap id="browseHistory" type="io.github.yu.blog.model.BrowseHistory">
         <id property="id" column="id" />
         <result property="userId" column="user_id" />
         <result property="postId" column="post_id" />
         <result property="browseTime" column="browse_time" />
+        <result property="lastBrowseTime" column="last_browse_time" />
     </resultMap>
 </mapper>

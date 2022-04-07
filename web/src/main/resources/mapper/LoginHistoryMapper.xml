@@ -19,6 +19,10 @@
         <include refid="common-select" />
     </select>
 
+    <select id="pageList" resultMap="loginHistory">
+        <include refid="common-select" />
+    </select>
+
     <sql id="common-select">
         select id, user_id, user_account, login_time, login_site, login_ip, browser_name
         from login_history

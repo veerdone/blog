@@ -38,7 +38,7 @@ public class Post {
 
     // 分类id
     @NotNull(message = "文章分类不能为空")
-    private Long sort;
+    private Long sortId;
     // 标题图片
     private String titlePicture;
     // 文章标签id

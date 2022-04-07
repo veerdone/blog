@@ -7,7 +7,8 @@ public enum ExceptionEnum {
     ACCOUNT_EXIST(HttpStatus.BAD_REQUEST, "账号已存在"),
     TELEPHONE_EXIST(HttpStatus.BAD_REQUEST, "手机号已注册"),
     ACCOUNT_OR_PASSWORD_ERROR(HttpStatus.BAD_REQUEST, "用户名或密码错误"),
-    USER_DISABLE(HttpStatus.FORBIDDEN, "用户被禁用")
+    USER_DISABLE(HttpStatus.FORBIDDEN, "用户被禁用"),
+    PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "参数错误")
     ;
 
     ExceptionEnum(HttpStatus status, String message) {

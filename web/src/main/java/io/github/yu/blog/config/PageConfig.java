@@ -26,14 +26,15 @@ public class PageConfig {
     @Around("pointcut()")
     public Object startPage(ProceedingJoinPoint joinPoint) throws Throwable {
         List<Integer> param = null;
-        param = getParamFromHeader();
-        if (param.isEmpty()) {
+        if (RequestUtil.getRequestMethod().equals("GET")) {
+            param = getParamFromHeader();
+        } else {
             param = getParamFromBody(joinPoint.getArgs()[0]);
-            if (param.isEmpty()) {
-                param = new ArrayList<>(2);
-                param.add(1);
-                param.add(10);
-            }
+        }
+        if (param.isEmpty()) {
+            param = new ArrayList<>(2);
+            param.add(1);
+            param.add(10);
         }
         PageHelper.startPage(param.get(0), param.get(1));
         return joinPoint.proceed();
@@ -60,18 +61,23 @@ public class PageConfig {
      * 从请求体获取分页参数
      * @param o 请求体
      * @return 分页参数
-     * @throws NoSuchFieldException 反射异常
      * @throws IllegalAccessException 反射异常
      */
-    public List<Integer> getParamFromBody(Object o) throws NoSuchFieldException, IllegalAccessException {
+    public List<Integer> getParamFromBody(Object o) throws IllegalAccessException {
         Class<?> c = o.getClass();
-        Field startPage = c.getDeclaredField("startPage");
-        startPage.setAccessible(true);
-        int i1 = startPage.getInt(o);
+        Field startPage = null;
+        int i1 = 0, i2 = 0;
+        try {
+            startPage = c.getDeclaredField("startPage");
+            startPage.setAccessible(true);
+            i1 = startPage.getInt(o);
 
-        Field pageSize = c.getDeclaredField("pageSize");
-        pageSize.setAccessible(true);
-        int i2 = pageSize.getInt(o);
+            Field pageSize = c.getDeclaredField("pageSize");
+            pageSize.setAccessible(true);
+            i2 = pageSize.getInt(o);
+        } catch (NoSuchFieldException ignored) {
+
+        }
         List<Integer> list = new ArrayList<>(2);
         if (i1 != 0 && i2 != 0) {
             list.add(i1);

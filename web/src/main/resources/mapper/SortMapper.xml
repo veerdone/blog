@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.yu.blog.mapper.SortMapper">
+    <insert id="insert">
+        insert into blog_sort(sort_name)
+        values (#{sortName})
+    </insert>
+
+    <select id="list">
+        <include refid="select" />
+    </select>
+
+
+    <sql id="select">
+        select sort_id, sort_name from blog_sort
+    </sql>
+
+    <resultMap id="sort" type="Sort">
+        <id property="sortId" column="sort_id" />
+        <result property="sortName" column="sort_name" />
+    </resultMap>
 </mapper>
