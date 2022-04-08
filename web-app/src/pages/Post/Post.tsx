@@ -4,13 +4,23 @@ import ProCard from "@ant-design/pro-card";
 import {ReactMarkdown} from "react-markdown/lib/react-markdown";
 import {getPostById} from "@/api/post";
 
-interface Param {
-	id: string
-}
 
-const Post:React.FC = () => {
-	const params: Param = useParams();
-	const [post, setPost] = useState<Post>();
+const Post = () => {
+	const params = useParams();
+	const [post, setPost] = useState<Post>({
+		createTime: "",
+		postContent: "",
+		postId: "",
+		postLikes: "",
+		postTags: [],
+		postTitle: "",
+		postViews: "",
+		sortId: "",
+		status: "",
+		titlePicture: "",
+		updateTIme: "",
+		userId: ""
+	});
 
 	const getPost = async () => {
 		const {data} = await getPostById(params.id);
@@ -21,19 +31,11 @@ const Post:React.FC = () => {
 		getPost();
 	}, []);
 
-	const isRender = () => {
-		if (post) {
-			getPost();
-			return <ReactMarkdown children={post.postContent}/>
-		}
-		return <ReactMarkdown children={post.postContent}/>
-	};
-
 	return (
 		<ProCard>
 			<ProCard colSpan={{xs: "0%", sm: "0%", md: "10%", lg: "15%", xl: "20%"}}/>
 			<ProCard>
-				{isRender()}
+				{<ReactMarkdown children={post.postContent}/>}
 			</ProCard>
 			<ProCard colSpan={{xs: "0%", sm: "0%", md: "10%", lg: "15%", xl: "20%"}}/>
 		</ProCard>

@@ -37,9 +37,8 @@ const PostList = () => {
 	const showPost = (record: PostVo, index: number) => {
 		return {
 			onClick: () => {
-				console.log(record);
-				// window.open(`http://localhost:8000/post/${record.postId}`)
-				history.push(`/post/${record.postId}`)
+				window.open(`http://localhost:8000/post/${record.postId}`);
+				// history.push(`/post/${record.postId}`)
 			}
 		}
 	};

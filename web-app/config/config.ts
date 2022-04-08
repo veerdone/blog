@@ -13,6 +13,7 @@ export default defineConfig({
 		},
 	],
 	fastRefresh: {},
+	mfsu: {},
 	layout: {
 		layout: "top",
 		navTheme: "light",

@@ -8,7 +8,7 @@ export function listPostVo()  {
 	})
 }
 
-export function getPostById(id: string) {
+export function getPostById(id: string | undefined) {
 	return service({
 		url: `/post/getById/${id}`,
 		method: "GET"
