@@ -28,6 +28,11 @@ public class PostController extends BaseController<Post, PostQuery, PostService>
         super.updateById(post);
     }
 
+    @GetMapping("/listVo")
+    public List<PostVo> listVo() {
+        return super.service.listVo();
+    }
+
     @GetMapping("/pageListVo")
     public List<PostVo> PageListVo() {
         return super.service.pageListVo();

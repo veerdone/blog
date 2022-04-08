@@ -11,6 +11,8 @@ import java.util.List;
 public interface PostService extends BaseService<Post, PostQuery> {
     void updateViewsByPostId(Long postId, Integer count);
 
+    List<PostVo> listVo();
+
     List<PostVo> pageListVo();
 
     List<PostVo> pageListVoBySortId(Serializable id);

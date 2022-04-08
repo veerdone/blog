@@ -8,10 +8,7 @@ import io.github.yu.blog.model.UserQuery;
 import io.github.yu.blog.service.LoginHistoryService;
 import io.github.yu.blog.service.UserService;
 import io.github.yu.common.constant.ExceptionEnum;
-import io.github.yu.common.exception.AccountExistException;
-import io.github.yu.common.exception.AccountOrPassErrorException;
-import io.github.yu.common.exception.TelephoneExistException;
-import io.github.yu.common.exception.UserDisableException;
+import io.github.yu.common.exception.*;
 import io.github.yu.common.util.IdUtil;
 import io.github.yu.common.util.PassEncode;
 import io.github.yu.common.util.RequestUtil;
@@ -39,6 +36,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
         }
         if (null == user.getCreateTime()) {
             user.setCreateTime(LocalDateTime.now());
+        }
+        if (super.mapper.getByName(user.getUsername()) != null) {
+            throw new UsernameExistException();
         }
         if (super.mapper.getByAccount(user.getAccount()) != null) {
             throw new AccountExistException(ExceptionEnum.ACCOUNT_EXIST);

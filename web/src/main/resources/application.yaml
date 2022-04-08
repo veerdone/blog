@@ -11,8 +11,12 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: io.github.yu.**.model
+logging:
+  level:
+    io.github.yu.blog.mapper: debug
+    org.*.*: warn
 blog:
   password:
     key: springbootyublog
-ip:
-  key: VVKBZ-KRVK4-XY7UB-D32WU-4YZO2-NCFJ3
+  ip:
+    key: VVKBZ-KRVK4-XY7UB-D32WU-4YZO2-NCFJ3

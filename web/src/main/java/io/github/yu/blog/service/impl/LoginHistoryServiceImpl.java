@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class LoginHistoryServiceImpl extends BaseServiceImpl<LoginHistory, LoginHistory, LoginHistoryMapper>
         implements LoginHistoryService {
-    @Value("${ip.key}")
+    @Value("${blog.ip.key}")
     private String key;
 
     @Autowired

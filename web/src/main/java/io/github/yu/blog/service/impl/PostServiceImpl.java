@@ -72,6 +72,13 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
         super.mapper.updateViewsByPostId(postId, count);
     }
 
+    @Override
+    public List<PostVo> listVo() {
+        List<PostVo> listVo = super.mapper.pageListVo();
+        setTag(listVo);
+        return listVo;
+    }
+
     /**
      * 获取文章vo，根据postTags获取postTag
      * @return postVo
