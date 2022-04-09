@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 在json序列化时将Long序列化为String，防止前端获取Long后精度丢失
+ */
 @Configuration
 public class JacksonConfig {
     @Bean

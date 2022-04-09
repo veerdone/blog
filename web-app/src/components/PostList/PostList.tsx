@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import ProList from "@ant-design/pro-list";
-import {Tag} from "antd";
-import {history} from "umi";
+import ProSkeleton from '@ant-design/pro-skeleton';
+import {Button, Tag} from "antd";
 import {EyeOutlined, LikeOutlined} from "@ant-design/icons";
 import {listPostVo} from "@/api/post";
 
@@ -38,15 +38,16 @@ const PostList = () => {
 		return {
 			onClick: () => {
 				window.open(`http://localhost:8000/post/${record.postId}`);
-				// history.push(`/post/${record.postId}`)
 			}
 		}
 	};
 
-	return (
-        <Fragment>
+	const loadingData = () => {
+		if (loading) {
+			return <ProSkeleton type={"list"} />
+		}
+		return (
 			<ProList
-				loading={loading}
 				dataSource={list}
 				itemLayout="vertical"
 				rowKey="postId"
@@ -64,7 +65,7 @@ const PostList = () => {
 					actions: {
 						render: (text, record: PostVo, index) => [
 							<IconText icon={EyeOutlined} text={record.postViews} key={"1"}/>,
-							<IconText icon={LikeOutlined} text={record.postLikes} key={"2"}/>,
+							<Button type={"text"} size={"small"} key={"2"}><IconText icon={LikeOutlined} text={record.postLikes} /></Button>
 						],
 					},
 					extra: {
@@ -77,6 +78,12 @@ const PostList = () => {
 				}}
 				onItem={showPost}
 			/>
+		)
+	};
+
+	return (
+        <Fragment>
+			{loadingData()}
         </Fragment>
     )
 };

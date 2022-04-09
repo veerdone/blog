@@ -1,4 +1,4 @@
-import service from "@/request";
+import service from "../util/request";
 
 
 export function listPostVo()  {
