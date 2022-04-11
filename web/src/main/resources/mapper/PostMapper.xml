@@ -28,8 +28,8 @@
         <if test="status != null">
             status,
         </if>
-        <if test="sort != null">
-            sort,
+        <if test="sortId != null">
+            sort_id,
         </if>
         <if test="titlePicture != null">
             title_picture,
@@ -65,8 +65,8 @@
         <if test="status != null">
             #{status},
         </if>
-        <if test="sort != null">
-            #{sort},
+        <if test="sortId != null">
+            #{sortId},
         </if>
         <if test="titlePicture != null">
             #{titlePicture},

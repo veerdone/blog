@@ -7,7 +7,7 @@
         values (#{sortName})
     </insert>
 
-    <select id="list">
+    <select id="list" resultMap="sort">
         <include refid="select" />
     </select>
 
