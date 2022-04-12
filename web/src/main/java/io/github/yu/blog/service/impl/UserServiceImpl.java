@@ -78,6 +78,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
         return super.mapper.getByAccount(account);
     }
 
+    @Override
+    public User getByTelephone(String telephone) {
+        return super.mapper.getByTelephone(telephone);
+    }
+
     private LoginHistory validateUser(User databaseUser, User user) {
         if (null == databaseUser) {
             throw new AccountOrPassErrorException();

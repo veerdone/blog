@@ -7,22 +7,11 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(res => {
-	res.headers["account"] = "1595557109";
+	if (res.headers) {
+		res.headers["account"] = "1595557109";
+	}
 	return res
 }, error => {
-
-});
-
-service.interceptors.response.use(res => {
-	return res;
-}, error => {
-	if (error && error.response) {
-		switch (error.response.status) {
-			case 401:
-				message.error("未登录!");
-		}
-	}
-	return Promise.reject(error)
 });
 
 export default service;

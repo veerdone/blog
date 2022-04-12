@@ -9,7 +9,8 @@ public enum ExceptionEnum {
     ACCOUNT_OR_PASSWORD_ERROR(HttpStatus.BAD_REQUEST, "用户名或密码错误"),
     USER_DISABLE(HttpStatus.FORBIDDEN, "用户被禁用"),
     PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "参数错误"),
-    USERNAME_EXIST(HttpStatus.BAD_REQUEST, "用户名已存在")
+    USERNAME_EXIST(HttpStatus.BAD_REQUEST, "用户名已存在"),
+    FILE_SUFFIX_ERROR(HttpStatus.BAD_REQUEST, "文件格式不合法")
     ;
 
     ExceptionEnum(HttpStatus status, String message) {

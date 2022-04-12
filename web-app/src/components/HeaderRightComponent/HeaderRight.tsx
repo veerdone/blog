@@ -52,7 +52,7 @@ const HeaderRight: React.FC = () => {
 		}
 		return <span>
 			<Avatar icon={<UserOutlined />} size={30}/>
-			<span>请登录!</span>
+			<span>未登录!</span>
 		</span>
 	};
 

@@ -12,4 +12,6 @@ public interface UserService extends BaseService<User, UserQuery> {
     String loginByTelephone(User user);
 
     User getCurrentUser();
+
+    User getByTelephone(String telephone);
 }
