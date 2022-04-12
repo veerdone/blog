@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "umi"
+import {Link, useLocation} from "umi"
 import {Avatar, Button, Dropdown, Menu, Space} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import {isLogin} from "@/util/cookie";
@@ -56,11 +56,18 @@ const HeaderRight: React.FC = () => {
 		</span>
 	};
 
+	const location = useLocation();
+	console.log(location.pathname);
+
 	return (
 		<Space size={"large"}>
-			<Link to={"/post/write"}>
-				<Button type={"primary"}>写文章</Button>
-			</Link>
+			{location.pathname !== "/login" && (
+				<>
+					<Link to={"/post/write"}>
+						<Button type={"primary"}>写文章</Button>
+					</Link>
+				</>
+			)}
 			<Dropdown overlay={menu}>
 				{showUserIcon()}
 			</Dropdown>

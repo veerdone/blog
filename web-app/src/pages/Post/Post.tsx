@@ -10,10 +10,6 @@ import {getPostById} from "@/api/post";
 
 const {TextArea} = Input;
 
-interface Param {
-	id: string
-}
-
 const Code = {
 	code({ node, inline, className, children, ...props }: any) {
 		const match = /language-(\w+)/.exec(className || '');
@@ -26,7 +22,7 @@ const Code = {
 };
 
 const Post = () => {
-	const params = useParams<Param>();
+	const params = useParams();
 	const [post, setPost] = useState<Post>({
 		createTime: "",
 		postContent: "",
