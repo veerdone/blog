@@ -64,6 +64,7 @@ const Comment = (props: Props) => {
 		};
 		insertComment(comment).then(res => {
 			if (res.data.status === 200) {
+				setMyComment("");
 				message.success("发布评论成功");
 				getComment();
 			}
@@ -72,13 +73,14 @@ const Comment = (props: Props) => {
 
 	const [replyComment, setReplyComment] = useState({
 		toUserId: "",
-		content: ""
+		content: "",
+		toCommentId: ""
 	});
 	const [showInputReply, setShowInputReply] = useState(false);
 
-	const clickReply = (toUserId: string) => {
+	const clickReply = (toUserId: string, toCommentId: string) => {
 		setShowInputReply(true);
-		setReplyComment({...replyComment, toUserId: toUserId})
+		setReplyComment({...replyComment, toUserId: toUserId, toCommentId: toCommentId})
 	};
 
 	const releaseReply = () => {
@@ -90,11 +92,14 @@ const Comment = (props: Props) => {
 			toUserId: replyComment.toUserId,
 			commentContent: replyComment.content,
 			postId: props.postId,
-			commentType: 1
+			commentType: 1,
+			toCommentId: replyComment.toCommentId
 		};
 		insertComment(comment).then(res => {
 			if (res.data.status === 200) {
+				setShowInputReply(false);
 				message.success("回复成功");
+				setReplyComment({toCommentId: "", content: "", toUserId: ""});
 				getComment();
 			}
 		})
@@ -134,11 +139,10 @@ const Comment = (props: Props) => {
 					<AntComment content={comment.commentContent} author={isMy(comment.fromUserId, comment.fromUsername)} key={comment.commentId}
 								avatar={<Avatar src={comment.fromUserIcon} alt={comment.fromUsername}/>}
 								datetime={<span>{comment.commentCreateTime}</span>}
-								actions={[<span onClick={() => clickReply(comment.fromUserId)}><CommentOutlined/>回复</span>]}>
+								actions={[<span onClick={() => clickReply(comment.fromUserId, comment.commentId)}><CommentOutlined/>回复</span>]}>
 						{commentList.filter(c => {
-							return c.toUserId === comment.fromUserId
-						})
-							.map(c2 => {
+							return c.toUserId === comment.fromUserId && c.toCommentId == comment.commentId
+						}).map(c2 => {
 								return (
 									<AntComment content={c2.commentContent} key={c2.commentId}
 												author={
@@ -152,7 +156,7 @@ const Comment = (props: Props) => {
 			})}
 			<Modal visible={showInputReply} onCancel={() => {
 				setShowInputReply(false);
-				setReplyComment({toUserId: "", content: ""});
+				setReplyComment({toUserId: "", content: "", toCommentId: ""});
 			}} title={"回复"} onOk={releaseReply}>
 				<TextArea value={replyComment.content} onChange={value => setReplyComment({...replyComment, content: value.target.value})}
 						  autoSize={{minRows: 2, maxRows: 6}} placeholder={"请输入回复"}/>

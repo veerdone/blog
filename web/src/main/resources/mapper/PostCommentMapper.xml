@@ -18,6 +18,9 @@
         <if test="toUserIcon != null">
             to_user_icon,
         </if>
+        <if test="toCommentId != null">
+            to_comment_id,
+        </if>
         comment_create_time
         ) values (
         #{commentId}, #{commentContent}, #{postId}, #{commentType},
@@ -34,6 +37,9 @@
         <if test="toUserIcon != null">
             #{toUserIcon},
         </if>
+        <if test="toCommentId != null">
+            #{toCommentId},
+        </if>
         #{commentCreateTime}
         )
     </insert>
@@ -49,7 +55,7 @@
         select comment_id, comment_content, post_id,
         comment_create_time, comment_type, from_user_id,
         from_user_name, from_user_icon, to_user_id,
-        to_user_name, to_user_icon
+        to_user_name, to_user_icon, to_comment_id
         from blog_post_comment
     </sql>
 
@@ -65,5 +71,6 @@
         <result property="toUserId" column="to_user_id" />
         <result property="toUsername" column="to_user_name" />
         <result property="toUserIcon" column="to_user_icon" />
+        <result property="toCommentId" column="to_comment_id" />
     </resultMap>
 </mapper>

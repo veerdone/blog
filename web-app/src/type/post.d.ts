@@ -52,4 +52,5 @@ declare interface IComment {
 	toUserId: string,
 	toUsername: string,
 	toUserIcon: string,
+	toCommentId: string
 }

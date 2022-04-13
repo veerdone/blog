@@ -37,4 +37,6 @@ public class PostComment {
     private String toUsername;
     // 被评论用户头像
     private String toUserIcon;
+    // 被回复评论id
+    private Long toCommentId;
 }
