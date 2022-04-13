@@ -39,12 +39,10 @@
     </insert>
 
 
-    <select id="getById">
+    <select id="listByPostId" resultMap="postComment">
         <include refid="common-select" />
         where post_id = #{id}
     </select>
-
-
 
 
     <sql id="common-select">

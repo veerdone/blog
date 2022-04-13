@@ -11,3 +11,7 @@ export function getCookie(key: string): any | undefined{
 export function isLogin(): boolean {
 	return Cookies.get("account") !== undefined;
 }
+
+export function setCookieExpire(key: string, value: any) {
+	Cookies.set(key, value, {expires: 1})
+}

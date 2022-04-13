@@ -2,6 +2,7 @@ package io.github.yu.blog.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.github.yu.base.controller.BaseController;
+import io.github.yu.base.result.BaseResult;
 import io.github.yu.base.result.ObjectResult;
 import io.github.yu.blog.model.User;
 import io.github.yu.blog.model.UserQuery;
@@ -53,27 +54,28 @@ public class UserController extends BaseController<User, UserQuery, UserService>
     }
 
     @GetMapping("/check/username")
-    public void isUsernameExist(@RequestParam("username") String username) {
+    public BaseResult isUsernameExist(@RequestParam("username") String username) {
         User user = super.service.getByName(username);
-        if (user != null) {
-            throw new UsernameExistException();
-        }
+        return validateUser(user);
     }
 
     @GetMapping("/check/account")
-    public void isAccountExist(@RequestParam("account") String account) {
+    public BaseResult isAccountExist(@RequestParam("account") String account) {
         User user = super.service.getByAccount(account);
-        if (user != null) {
-            throw new AccountExistException();
-        }
+        return validateUser(user);
     }
 
     @GetMapping("/check/telephone")
-    public void isTelephoneExist(@RequestParam("telephone") String telephone) {
+    public BaseResult isTelephoneExist(@RequestParam("telephone") String telephone) {
         User user = super.service.getByTelephone(telephone);
+        return validateUser(user);
+    }
+
+    private BaseResult validateUser(User user) {
         if (user != null) {
-            throw new TelephoneExistException();
+            return BaseResult.result(400, "用户名已存在");
         }
+        return BaseResult.result(200, "请求成功");
     }
 
 }

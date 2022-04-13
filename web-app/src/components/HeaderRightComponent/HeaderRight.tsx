@@ -50,14 +50,18 @@ const HeaderRight: React.FC = () => {
 				<span>{user.username}</span>
 			</span>
 		}
-		return <span>
-			<Avatar icon={<UserOutlined />} size={30}/>
-			<span>未登录!</span>
-		</span>
+		return (
+			<Link to={"/login"}>
+				<span>
+					<Avatar icon={<UserOutlined/>} size={30}/>
+					<span>未登录!</span>
+				</span>
+			</Link>
+
+		)
 	};
 
 	const location = useLocation();
-	console.log(location.pathname);
 
 	return (
 		<Space size={"large"}>

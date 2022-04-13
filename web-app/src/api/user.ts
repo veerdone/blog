@@ -12,11 +12,7 @@ export function getCurrentUser() {
 	})
 }
 
-export function loginByAccount(account: string, password: string) {
-	const user = {
-		account: account,
-		password: password
-	};
+export function loginByAccount(user: any) {
 	return service({
 		url: "/user/loginByAccount",
 		method: "POST",
@@ -24,11 +20,7 @@ export function loginByAccount(account: string, password: string) {
 	})
 }
 
-export function loginByTelephone(telephone: string, password : string) {
-	const user = {
-		telephone: telephone,
-		password: password
-	};
+export function loginByTelephone(user: any) {
 	return service({
 		url: "/user/loginByTelephone",
 		method: "POST",
@@ -46,32 +38,10 @@ export function getUserByUsername(username: string) {
 	})
 }
 
-export function isUsernameExist(username: string) {
+export function insertUser(user: any) {
 	return service({
-		url: "/user/check/username",
-		method: "GET",
-		params: {
-			username: username
-		}
-	})
-}
-
-export function isAccountExist(account: string) {
-	return service({
-		url: "/user/check/account",
-		method: "GET",
-		params: {
-			account: account
-		}
-	})
-}
-
-export function isTelephoneExist(telephone: string) {
-	return service({
-		url: "/user/check/telephone",
-		method: "GET",
-		params: {
-			telephone: telephone
-		}
+		url: "/user/insert",
+		method: "POST",
+		data: user
 	})
 }

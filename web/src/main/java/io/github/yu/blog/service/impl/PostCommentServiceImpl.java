@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class PostCommentServiceImpl extends BaseServiceImpl<PostComment, PostComment, PostCommentMapper>
@@ -36,5 +37,10 @@ public class PostCommentServiceImpl extends BaseServiceImpl<PostComment, PostCom
         }
 
         super.mapper.insert(postComment);
+    }
+
+    @Override
+    public List<PostComment> listById(Long id) {
+        return super.mapper.listByPostId(id);
     }
 }

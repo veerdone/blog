@@ -11,7 +11,16 @@ service.interceptors.request.use(res => {
 		res.headers["account"] = "1595557109";
 	}
 	return res
+});
+
+service.interceptors.response.use(res => {
+	return res;
 }, error => {
+	if (error) {
+		const {data} = error.response;
+		message.error(data.message);
+	}
+	return error.response
 });
 
 export default service;

@@ -52,6 +52,7 @@ const Write = () => {
 	const handleRelease = () => {
 		if (post.postTitle.length < 5) {
 			message.error("文章标题不能小于5个字");
+			return;
 		}
 		if (post.postContent.length === 0 || post.postContent === "") {
 			message.error("文章内容不能为空");

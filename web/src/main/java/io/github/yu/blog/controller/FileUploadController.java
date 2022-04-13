@@ -19,7 +19,7 @@ public class FileUploadController {
         return fileUploadService.imageUpload(multipartFile);
     }
 
-    @GetMapping("/delete/iamge")
+    @GetMapping("/delete/image")
     public void deleteImage(@RequestParam("filename") String filename) throws IOException {
         fileUploadService.deleteImage(filename);
     }

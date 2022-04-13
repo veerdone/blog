@@ -31,12 +31,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
 
     @Override
     public void insert(User user) {
-        if (null == user.getUserId()) {
-            user.setUserId(IdUtil.getId());
-        }
-        if (null == user.getCreateTime()) {
-            user.setCreateTime(LocalDateTime.now());
-        }
         if (super.mapper.getByName(user.getUsername()) != null) {
             throw new UsernameExistException();
         }
@@ -45,6 +39,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
         }
         if (super.mapper.getByTelephone(user.getTelephone()) != null) {
             throw new TelephoneExistException(ExceptionEnum.TELEPHONE_EXIST);
+        }
+        if (null == user.getUserId()) {
+            user.setUserId(IdUtil.getId());
+        }
+        if (null == user.getCreateTime()) {
+            user.setCreateTime(LocalDateTime.now());
         }
         user.setPassword(passEncode.Encode(user.getPassword()));
         super.mapper.insert(user);

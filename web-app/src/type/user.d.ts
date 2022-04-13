@@ -1,5 +1,5 @@
 declare interface User {
-	userId?: number,
+	userId: string,
 	account: string,
 	username: string,
 	password: string,

@@ -39,3 +39,17 @@ declare interface Sort {
 	sortId?: string,
 	sortName: string
 }
+
+declare interface IComment {
+	commentId: string,
+	commentContent: string,
+	postId: string,
+	commentCreateTime: string,
+	commentType: number,
+	fromUserId: string,
+	fromUsername: string,
+	fromUserIcon: string,
+	toUserId: string,
+	toUsername: string,
+	toUserIcon: string,
+}
