@@ -9,12 +9,12 @@ const Tag = () => {
 	const [tagList, setTagList] = useState<Tag[]>([]);
 	const getTagList = async () => {
 		const {data} = await listTag();
-		setTagList(data.data);
+		setTagList(data.list);
 	};
 
 	useEffect(() => {
 		getTagList();
-	});
+	}, []);
 
 	const ref = React.createRef<Ref>();
 
@@ -31,7 +31,7 @@ const Tag = () => {
 
 	return(
 		<ProCard>
-			<ProCard>
+			<ProCard colSpan={"10%"}>
 				<Tabs tabPosition={"left"} defaultActiveKey={"1"} onTabClick={handleClick}>
 					{tagList.map(tag => {
 						return <Tabs.TabPane key={tag.tagId} tab={tag.tagName} />

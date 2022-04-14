@@ -12,5 +12,7 @@ export default function IndexPage(props: any) {
 
 export function currentUserInfo() {
 	const cookie = getCookie("currentUser");
-	return JSON.parse(cookie);
+	if(cookie) {
+		return JSON.parse(cookie);
+	}
 }

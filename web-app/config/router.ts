@@ -11,6 +11,7 @@ const router = [
 		]
 	},
 	{path: "/sort", component: "@/pages/Sort/Sort", title: "分类", name: "分类"},
+	{path: "/tag", component: "@/pages/Tag/Tag", title: "标签", name: "标签"},
 	{path: "/login", component: "@/pages/Login/Login", title: "登录"},
 	{path: "/", redirect: "/home"},
 	{component: "@/components/404/NotFound", title: 404},
