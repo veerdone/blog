@@ -36,3 +36,23 @@ export function listSort() {
 		method: "GET"
 	})
 }
+
+export function listPostVoBySortId(sortId: string) {
+	return service({
+		url: "/post/listVoBySortId",
+		method: "GET",
+		params: {
+			sortId: sortId
+		}
+	})
+}
+
+export function listPostVoByTagId(tagId: string) {
+	return service({
+		url: "/post/listVoByTagId",
+		method: "GET",
+		params: {
+			tagId: tagId
+		}
+	})
+}

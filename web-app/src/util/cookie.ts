@@ -1,7 +1,7 @@
-import Cookies from "js-cookie";
+import Cookies, {CookieAttributes} from "js-cookie";
 
-export function setCookie(key: string, value: any) {
-	Cookies.set(key, value)
+export function setCookie(key: string, value: any, options? :CookieAttributes) {
+	Cookies.set(key, value, options)
 }
 
 export function getCookie(key: string): any | undefined{
@@ -9,9 +9,13 @@ export function getCookie(key: string): any | undefined{
 }
 
 export function isLogin(): boolean {
-	return Cookies.get("account") !== undefined;
+	return Cookies.get("currentUser") !== undefined;
 }
 
 export function setCookieExpire(key: string, value: any) {
 	Cookies.set(key, value, {expires: 1})
+}
+
+export function removeCookie(key: string) {
+	Cookies.remove(key);
 }

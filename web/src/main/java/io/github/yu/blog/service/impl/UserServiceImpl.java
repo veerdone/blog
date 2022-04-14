@@ -12,6 +12,7 @@ import io.github.yu.common.exception.*;
 import io.github.yu.common.util.IdUtil;
 import io.github.yu.common.util.PassEncode;
 import io.github.yu.common.util.RequestUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,20 +57,26 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
     }
 
     @Override
-    public String loginByAccount(User user) {
+    public User loginByAccount(User user) {
         String account = user.getAccount();
         User databaseUser = super.mapper.getByAccount(account);
         LoginHistory history = validateUser(databaseUser, user);
         loginHistoryService.insert(history);
-        return databaseUser.getAccount();
+
+        User returnUser = new User();
+        BeanUtils.copyProperties(databaseUser, returnUser, "password");
+        return returnUser;
     }
 
     @Override
-    public String loginByTelephone(User user) {
+    public User loginByTelephone(User user) {
         User databaseUser = super.mapper.getByTelephone(user.getTelephone());
         LoginHistory history = validateUser(databaseUser, user);
         loginHistoryService.insert(history);
-        return databaseUser.getAccount();
+
+        User returnUser = new User();
+        BeanUtils.copyProperties(databaseUser, returnUser, "password");
+        return returnUser;
     }
 
     @Override

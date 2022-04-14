@@ -53,4 +53,20 @@ public class PostController extends BaseController<Post, PostQuery, PostService>
         }
         return super.service.pageListVoByTagId(tagId);
     }
+
+    @GetMapping("/listVoBySortId")
+    public List<PostVo> listVoBySortId(@RequestParam("sortId") Integer sortId) {
+        if (sortId < 0) {
+            throw new ParameterErrorException();
+        }
+        return super.service.listVoBySortId(sortId);
+    }
+
+    @GetMapping("/listVoByTagId")
+    public List<PostVo> listVoByTagId(@RequestParam("tagId") Integer tagId) {
+        if (tagId < 0) {
+            throw new ParameterErrorException();
+        }
+        return super.service.listVoByTagId(tagId);
+    }
 }

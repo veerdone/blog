@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {history} from "umi";
-import {getCurrentUser} from "@/api/user";
 import {isLogin} from "@/util/cookie";
 import {Avatar, Input, Comment as AntComment, Button, Divider, message, Modal} from "antd";
 import {UserOutlined, CommentOutlined} from "@ant-design/icons";
 import {getCommentList, insertComment} from "@/api/comment";
+import {currentUserInfo} from "@/pages";
 
 const {TextArea} = Input;
 
@@ -13,31 +13,7 @@ interface Props {
 }
 
 const Comment = (props: Props) => {
-	const [user, setUser] = useState<User>({
-		account: "",
-		createTime: "",
-		fans: 0,
-		focus: 0,
-		icon: "",
-		likes: 0,
-		password: "",
-		sex: false,
-		status: false,
-		telephone: "",
-		userId: "",
-		username: ""
-	});
-
-	const getUser = async () => {
-		const {data} = await getCurrentUser();
-		setUser(data.data);
-	};
-
-	useEffect(() => {
-		if (isLogin()) {
-			getUser();
-		}
-	}, []);
+	const user = currentUserInfo();
 
 	const [commentList, setCommentList] = useState<IComment[]>([]);
 	const getComment = async () => {
@@ -49,7 +25,7 @@ const Comment = (props: Props) => {
 	}, []);
 
 	const isMy = (userId: string, username: string) => {
-		if (userId === user.userId) {
+		if (userId === user?.userId) {
 			return <span>我</span>
 		}
 		return <span>{username}</span>
@@ -110,7 +86,7 @@ const Comment = (props: Props) => {
 			<Divider/>
 			{isLogin() && (
 				<>
-					<AntComment avatar={<Avatar src={user.icon}/>}
+					<AntComment avatar={<Avatar src={user?.icon}/>}
 								content={<TextArea showCount placeholder={"请输入评论!"}
 												   autoSize={{minRows: 2, maxRows: 6}}
 												   onChange={value => setMyComment(value.target.value)}

@@ -7,6 +7,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import {getPostById} from "@/api/post";
 import Comment from "@/components/comment/Comment";
+import {BackTop} from "antd";
 
 
 const Code = {
@@ -56,6 +57,11 @@ const Post = () => {
 
 	return (
 		<ProCard>
+			<BackTop visibilityHeight={1000}>
+				<div style={{width: 40, height: 40, backgroundColor: "#1088e9", color: "white", lineHeight: "40px", textAlign: "center", fontSize: "14px", borderRadius: 20}}>
+					UP
+				</div>
+			</BackTop>
 			<Helmet>
 				<title>{post.postTitle}</title>
 			</Helmet>

@@ -8,7 +8,7 @@ import {
 	loginByTelephone,
 	insertUser
 } from "@/api/user";
-import {setCookieExpire} from "@/util/cookie";
+import {setCookie, setCookieExpire} from "@/util/cookie";
 import {deleteImage, uploadImage} from "@/api/upload";
 import "./Login.css";
 
@@ -28,7 +28,7 @@ const Login = () => {
 				loginByAccount(values).then(res => {
 					if (res.data.status === 200) {
 						message.success("登录成功");
-						setCookieExpire("account", res.data.data);
+						setCookie("currentUser", JSON.stringify(res.data.data), {expires: 5});
 						history.push("/");
 					}
 				})
@@ -36,7 +36,7 @@ const Login = () => {
 				loginByTelephone(values).then(res => {
 					if (res.data.status === 200) {
 						message.success("登录成功");
-						setCookieExpire("account", res.data.data);
+						setCookie("currentUser", JSON.stringify(res.data.data), {expires: 5});
 						history.push("/");
 					} else {
 						message.error(res.data.message);

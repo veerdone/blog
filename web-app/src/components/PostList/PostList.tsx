@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useImperativeHandle, useState} from "react";
 import ProList from "@ant-design/pro-list";
 import ProSkeleton from '@ant-design/pro-skeleton';
 import {Button, Tag} from "antd";
@@ -12,7 +12,11 @@ const IconText = ({ icon, text }: { icon: any; text: string | number | undefined
   </span>
 );
 
-const PostList = () => {
+type Props = {
+	onRef?: any
+}
+
+const PostList = (props: Props) => {
 	const [list, setList] = useState<PostVo[]>([]);
 	const [loading, setLoading] = useState(false);
 
@@ -26,6 +30,13 @@ const PostList = () => {
 	useEffect(() => {
 		requestList();
 	}, []);
+
+	useImperativeHandle(props.onRef, () => {
+		return{
+			setList: setList,
+			setLoading: setLoading
+		}
+	});
 
 	const renderPicture = (record: PostVo): React.ReactNode => {
 		if (record.titlePicture) {
