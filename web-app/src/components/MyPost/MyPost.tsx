@@ -8,14 +8,14 @@ const {Column} = Table;
 const MyPost = () => {
 	const [loading, setLoading] = useState(false);
 	const [postList, setPostList] = useState<PostVo[]>([]);
-	const [total, setTotal] = useState(0);
+	const [pagination, setPagination] = useState({total: 0, current: 1, pageSize: 10});
 	const user = currentUserInfo();
 
 	const getPost = async (page: number = 1, pageSize: number = 10) => {
 		setLoading(true);
 		const {data} = await pageListVoByCurrentUserId(user?.userId, page, pageSize);
 		setPostList(data.list);
-		setTotal(data.total);
+		setPagination({total: data.total, current: page, pageSize: pageSize});
 		setLoading(false);
 	};
 
@@ -32,7 +32,7 @@ const MyPost = () => {
 			{!loading && (
 				<>
 					<Table dataSource={postList}
-						   pagination={{pageSize: 2}}
+						   pagination={{...pagination, onChange: getPost}}
 						   rowKey={"postId"}>
 						<Column title={"标题"} dataIndex={"postTitle"} key={"postTitle"}/>
 						<Column title={"浏览量"} dataIndex={"postViews"} key={"postViews"}/>
