@@ -1,14 +1,17 @@
-import {getCookie} from "@/util/cookie";
 import service from "@/util/request";
 
 export function getCurrentUser() {
-	const account = getCookie("account");
 	return service({
-		url: "/user/getByAccount",
-		params: {
-			account: account
-		},
+		url: "/user/getCurrentUser",
 		method: "GET"
+	})
+}
+
+export function updateUserById(user: any) {
+	return service({
+		url: "/user/updateById",
+		method: "PUT",
+		data: user
 	})
 }
 
@@ -42,6 +45,14 @@ export function insertUser(user: any) {
 	return service({
 		url: "/user/insert",
 		method: "POST",
+		data: user
+	})
+}
+
+export function updateUserByQuery(user: any) {
+	return service({
+		url: "/user/updateByQuery",
+		method: "PUT",
 		data: user
 	})
 }

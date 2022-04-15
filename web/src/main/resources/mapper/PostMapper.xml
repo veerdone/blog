@@ -158,6 +158,11 @@
         where FIND_IN_SET(#{id}, post_tags)
     </select>
 
+    <select id="pageListVoByUserId" resultMap="postVo">
+        <include refid="common-select" />
+        where user_id = #{id}
+    </select>
+
     <sql id="common-select">
         select post_id, post_title, post_content, user_id, post_views, post_likes,
         create_time, update_time, status, sort_id, title_picture, post_tags

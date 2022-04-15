@@ -44,10 +44,20 @@
         )
     </insert>
 
+    <delete id="deleteById">
+        delete from blog_post_comment
+        where comment_id = #{id}
+    </delete>
+
 
     <select id="listByPostId" resultMap="postComment">
         <include refid="common-select" />
         where post_id = #{id}
+    </select>
+
+    <select id="listByToCommentId" resultMap="postComment">
+        <include refid="common-select" />
+        where to_comment_id = #{id}
     </select>
 
 

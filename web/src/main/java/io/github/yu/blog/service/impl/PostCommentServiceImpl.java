@@ -10,6 +10,7 @@ import io.github.yu.common.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,6 +38,19 @@ public class PostCommentServiceImpl extends BaseServiceImpl<PostComment, PostCom
         }
 
         super.mapper.insert(postComment);
+    }
+
+    /**
+     * 删除文章评论，如果有回复，先删除回复，再删除文章评论
+     * @param id 文章评论id
+     */
+    @Override
+    public void deleteById(Serializable id) {
+        List<PostComment> postComments = super.mapper.listByToCommentId(id);
+        if (!postComments.isEmpty()) {
+            postComments.forEach(postComment -> super.deleteById(postComment.getCommentId()));
+        }
+        super.deleteById(id);
     }
 
     @Override

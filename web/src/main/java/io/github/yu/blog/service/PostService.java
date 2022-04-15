@@ -22,4 +22,6 @@ public interface PostService extends BaseService<Post, PostQuery> {
     List<PostVo> listVoBySortId(Serializable id);
 
     List<PostVo> listVoByTagId(Serializable id);
+
+    List<PostVo> pageListVoByUserId(Serializable id);
 }

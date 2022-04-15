@@ -56,3 +56,15 @@ export function listPostVoByTagId(tagId: string) {
 		}
 	})
 }
+
+export function pageListVoByCurrentUserId(userId: string, page:number, pageSize: number) {
+	return service({
+		url: "/post/pageListVoByUserId",
+		method: "GET",
+		params: {
+			userId: userId,
+			pageSize: pageSize,
+			startPage: page
+		}
+	})
+}

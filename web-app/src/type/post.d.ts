@@ -14,7 +14,7 @@ declare interface Post {
 }
 
 declare interface PostVo {
-	postId?: string,
+	postId: string,
 	postTitle: string,
 	postContent: string,
 	userId: string,

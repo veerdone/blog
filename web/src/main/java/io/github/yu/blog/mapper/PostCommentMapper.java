@@ -3,6 +3,7 @@ package io.github.yu.blog.mapper;
 import io.github.yu.base.mapper.BaseMapper;
 import io.github.yu.blog.model.PostComment;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,4 +11,6 @@ import java.util.List;
  */
 public interface PostCommentMapper extends BaseMapper<PostComment, PostComment> {
     List<PostComment> listByPostId(Long postId);
+
+    List<PostComment> listByToCommentId(Serializable commentId);
 }

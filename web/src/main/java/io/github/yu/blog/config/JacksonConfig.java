@@ -1,6 +1,8 @@
 package io.github.yu.blog.config;
 
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -25,6 +27,10 @@ public class JacksonConfig {
                     new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             builder.serializerByType(LocalDate.class,
                     new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            builder.deserializerByType(LocalDateTime.class,
+                    new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            builder.deserializerByType(LocalDate.class,
+                    new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         };
     }
 }

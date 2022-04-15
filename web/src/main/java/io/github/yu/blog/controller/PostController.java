@@ -69,4 +69,9 @@ public class PostController extends BaseController<Post, PostQuery, PostService>
         }
         return super.service.listVoByTagId(tagId);
     }
+
+    @GetMapping("/pageListVoByUserId")
+    public List<PostVo> pageListVoByUserId(@RequestParam("userId") String userId) {
+        return super.service.pageListVoByUserId(userId);
+    }
 }

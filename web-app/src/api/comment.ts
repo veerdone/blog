@@ -17,3 +17,10 @@ export function insertComment(comment: any) {
 		data: comment
 	})
 }
+
+export function deleteCommentById(commentId: string) {
+	return service({
+		url: `/postComment/deleteById/${commentId}`,
+		method: "DELETE"
+	})
+}

@@ -32,7 +32,7 @@ public class User {
     @NotEmpty(message = "手机号不能为空")
     private String telephone;
 
-    // 用户性别，0代码男，1代表女
+    // 用户性别，0代码女，1代表男
     private Boolean sex;
     // 粉丝数
     private Long fans;

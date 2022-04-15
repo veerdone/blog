@@ -5,6 +5,8 @@ import io.github.yu.blog.model.User;
 import io.github.yu.blog.model.UserQuery;
 
 public interface UserService extends BaseService<User, UserQuery> {
+    void updateByQuery(UserQuery query);
+
     User getByAccount(String account);
 
     User loginByAccount(User user);

@@ -42,4 +42,6 @@ public interface PostMapper extends BaseMapper<Post, PostQuery> {
      * @return 文章vo
      */
     List<PostVo> pageListVoByTagId(Serializable id);
+
+    List<PostVo> pageListVoByUserId(Serializable id);
 }

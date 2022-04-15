@@ -20,7 +20,7 @@ public class UserController extends BaseController<User, UserQuery, UserService>
     }
 
     @GetMapping("/getByAccount")
-    public User getByAccount(@RequestParam String account) {
+    public User getByAccount(@RequestParam("account") String account) {
         return this.service.getByAccount(account);
     }
 
@@ -46,4 +46,16 @@ public class UserController extends BaseController<User, UserQuery, UserService>
         return super.service.loginByTelephone(user);
     }
 
+    @GetMapping("/getCurrentUser")
+    public User getCurrentUser(@RequestHeader(value = "account", required = false) String account) {
+        if (StrUtil.isEmpty(account)){
+            return null;
+        }
+        return super.service.getByAccount(account);
+    }
+
+    @PutMapping("/updateByQuery")
+    public void updateByQuery(@RequestBody UserQuery query) {
+        super.service.updateByQuery(query);
+    }
 }

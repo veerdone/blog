@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {history} from "umi";
 import {isLogin} from "@/util/cookie";
 import {Avatar, Input, Comment as AntComment, Button, Divider, message, Modal} from "antd";
-import {UserOutlined, CommentOutlined} from "@ant-design/icons";
-import {getCommentList, insertComment} from "@/api/comment";
+import {UserOutlined, CommentOutlined, DeleteOutlined} from "@ant-design/icons";
+import {deleteCommentById, getCommentList, insertComment} from "@/api/comment";
 import {currentUserInfo} from "@/pages";
 
 const {TextArea} = Input;
@@ -81,6 +81,14 @@ const Comment = (props: Props) => {
 		})
 	};
 
+	const deleteComment = async (commonId: string) => {
+		const {data} = await deleteCommentById(commonId);
+		if (data.status === 200) {
+			message.success("删除成功");
+		}
+		getComment();
+	};
+
 	return (
 		<>
 			<Divider/>
@@ -115,7 +123,12 @@ const Comment = (props: Props) => {
 					<AntComment content={comment.commentContent} author={isMy(comment.fromUserId, comment.fromUsername)} key={comment.commentId}
 								avatar={<Avatar src={comment.fromUserIcon} alt={comment.fromUsername}/>}
 								datetime={<span>{comment.commentCreateTime}</span>}
-								actions={[<span onClick={() => clickReply(comment.fromUserId, comment.commentId)}><CommentOutlined/>回复</span>]}>
+								actions={[
+									<span onClick={() => clickReply(comment.fromUserId, comment.commentId)}><CommentOutlined/>回复</span>,
+									user?.userId === comment.fromUserId && (
+										<span onClick={() => deleteComment(comment.commentId)}><DeleteOutlined />删除</span>
+									)
+								]}>
 						{commentList.filter(c => {
 							return c.toUserId === comment.fromUserId && c.toCommentId == comment.commentId
 						}).map(c2 => {
@@ -125,6 +138,11 @@ const Comment = (props: Props) => {
 													<span>{isMy(c2.fromUserId, c2.fromUsername)} 回复 {isMy(c2.toUserId, c2.toUsername)}</span>}
 												avatar={<Avatar src={c2.fromUserIcon} alt={c2.fromUsername}/>}
 												datetime={<span>{c2.commentCreateTime}</span>}
+												actions={[
+													user?.userId === c2.fromUserId && (
+														<span onClick={() => deleteComment(c2.commentId)}><DeleteOutlined />删除</span>
+													)
+												]}
 									/>
 								)
 							})}

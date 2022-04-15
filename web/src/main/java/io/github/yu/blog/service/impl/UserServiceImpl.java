@@ -52,6 +52,18 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
     }
 
     @Override
+    public void updateByQuery(UserQuery query) {
+        Long userId = query.getUserId();
+        User user = super.mapper.getById(userId);
+        if (passEncode.match(user.getPassword(), query.getPassword())) {
+            query.setPassword(passEncode.Encode(query.getNewPassword()));
+            super.mapper.updateById(query);
+            return;
+        }
+        throw new PasswordErrorException();
+    }
+
+    @Override
     public User getByAccount(String account) {
         return super.mapper.getByAccount(account);
     }

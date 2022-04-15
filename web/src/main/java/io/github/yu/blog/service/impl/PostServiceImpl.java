@@ -118,6 +118,13 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
         return listVo;
     }
 
+    @Override
+    public List<PostVo> pageListVoByUserId(Serializable id) {
+        List<PostVo> listVo = super.mapper.pageListVoByUserId(id);
+        setTag(listVo);
+        return listVo;
+    }
+
     private void setTag(List<PostVo> listVo) {
         if (listVo.isEmpty()) {
             return;

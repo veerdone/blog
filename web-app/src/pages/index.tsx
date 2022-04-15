@@ -13,6 +13,10 @@ export default function IndexPage(props: any) {
 export function currentUserInfo() {
 	const cookie = getCookie("currentUser");
 	if(cookie) {
-		return JSON.parse(cookie);
+		try {
+			return JSON.parse(cookie);
+		} catch (e) {
+
+		}
 	}
 }
