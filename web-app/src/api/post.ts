@@ -68,3 +68,20 @@ export function pageListVoByCurrentUserId(userId: string, page:number, pageSize:
 		}
 	})
 }
+
+export function updatePostById(post: Post) {
+	return service({
+		url: "/post/updateById",
+		method: "PUT",
+		data: {
+			...post
+		}
+	})
+}
+
+export function deletePostById(postId: string) {
+	return service({
+		url: `/post/deleteById/${postId}`,
+		method: "DELETE"
+	})
+}

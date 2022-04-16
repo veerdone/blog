@@ -52,17 +52,24 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
             User currentUser = userService.getCurrentUser();
             post.setUserId(currentUser.getUserId());
         }
+        if (post.getStatus() != 1) {
+            PostReview postReview = new PostReview();
+            postReview.setReviewPostId(post.getPostId());
+            postReviewService.insert(postReview);
+        }
         super.mapper.insert(post);
-
-        PostReview postReview = new PostReview();
-        postReview.setReviewPostId(post.getPostId());
-        postReviewService.insert(postReview);
     }
 
     @Override
     public void updateById(Post post) {
         if (null == post.getUpdateTime()) {
             post.setUpdateTime(LocalDateTime.now());
+        }
+        if (post.getStatus() != 1) {
+            post.setStatus(2);
+            PostReview postReview = new PostReview();
+            postReview.setReviewPostId(post.getPostId());
+            postReviewService.insert(postReview);
         }
         super.mapper.updateById(post);
     }

@@ -104,14 +104,14 @@
             <if test="status != null">
                 status = #{status},
             </if>
-            <if test="sort != null">
-                sort = #{sort},
+            <if test="sortId != null">
+                sort_id = #{sortId},
             </if>
             <if test="titlePicture != null">
                 title_picture = #{titlePicture},
             </if>
             <if test="postTags != null">
-                post_tags = #{postTags,typeHandler=io.github.yu.common.handler.ListTypeHandler}
+                post_tags = #{postTags,typeHandler=io.github.yu.common.handler.ListTypeHandler},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime}

@@ -39,7 +39,7 @@ const Post = () => {
 		sortId: "",
 		status: "",
 		titlePicture: "",
-		updateTIme: "",
+		updateTime: "",
 		userId: ""
 	});
 	const [loading, setLoading] = useState(false);

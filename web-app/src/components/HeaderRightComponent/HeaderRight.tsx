@@ -22,7 +22,7 @@ const HeaderRight = () => {
 	const menu = (
 		<Menu>
 			<Menu.Item key="myHome">
-				<Link to="/myHome">个人中心</Link>
+				<Link to="/myHome/MyInfo">个人中心</Link>
 			</Menu.Item>
 			<Menu.Item key="logout" onClick={logout}>
 				退出登录
