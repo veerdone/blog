@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface PostReviewMapper extends BaseMapper<PostReview, PostReviewQuery> {
     @Override
-    List<PostReview> pageListByQuery(@Param("query") PostReviewQuery query);
+    List<PostReview> pageByQuery(@Param("query") PostReviewQuery query);
 }

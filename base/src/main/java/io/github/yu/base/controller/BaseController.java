@@ -41,12 +41,12 @@ public abstract class BaseController<T, Q extends T, S extends BaseService<T, Q>
     }
 
     @GetMapping("/pageList")
-    public List<T> pageList() {
+    public List<T> page() {
         return this.service.pageList();
     }
 
     @PostMapping("/pageListByQuery")
-    public List<T> pageListByQuery(@RequestBody Q query) {
+    public List<T> pageByQuery(@RequestBody Q query) {
         return this.service.pageListByQuery(query);
     }
 

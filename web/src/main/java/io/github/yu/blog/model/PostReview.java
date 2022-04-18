@@ -16,6 +16,8 @@ public class PostReview {
     private String reviewUsername;
     // 审核文章id
     private Long reviewPostId;
+    // 审核文章标题
+    private String reviewPostTitle;
     // 审核状态，1代表审核通过，2代表待审核，3代表审核不通过
     private Integer reviewStatus;
     // 审核失败原因

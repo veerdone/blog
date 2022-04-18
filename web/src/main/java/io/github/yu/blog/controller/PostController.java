@@ -33,25 +33,30 @@ public class PostController extends BaseController<Post, PostQuery, PostService>
         return super.service.listVo();
     }
 
-    @GetMapping("/pageListVo")
+    @GetMapping("/pagePostVo")
     public List<PostVo> PageListVo() {
-        return super.service.pageListVo();
+        return super.service.pagePostVo();
     }
 
-    @GetMapping("/pageListVoBySortId")
-    public List<PostVo> pageListVoBySortId(@RequestParam("sortId") Integer sortId) {
+    @PostMapping("/pagePostVoByQuery")
+    public List<PostVo> pagePostVoByQuery(@RequestBody PostQuery query) {
+        return super.service.pagePostVoQuery(query);
+    }
+
+    @GetMapping("/pagePostVoBySortId")
+    public List<PostVo> pagePostVoBySortId(@RequestParam("sortId") Integer sortId) {
         if (sortId < 0) {
             throw new ParameterErrorException();
         }
-        return super.service.pageListVoBySortId(sortId);
+        return super.service.pagePostVoBySortId(sortId);
     }
 
-    @GetMapping("/pageListVoByTagId")
-    public List<PostVo> pageListVoByTagId(@RequestParam("tagId") Integer tagId) {
+    @GetMapping("/pagePostVoByTagId")
+    public List<PostVo> pagePostVoByTagId(@RequestParam("tagId") Integer tagId) {
         if (tagId < 0) {
             throw new ParameterErrorException();
         }
-        return super.service.pageListVoByTagId(tagId);
+        return super.service.pagePostVoByTagId(tagId);
     }
 
     @GetMapping("/listVoBySortId")
@@ -70,8 +75,8 @@ public class PostController extends BaseController<Post, PostQuery, PostService>
         return super.service.listVoByTagId(tagId);
     }
 
-    @GetMapping("/pageListVoByUserId")
-    public List<PostVo> pageListVoByUserId(@RequestParam("userId") String userId) {
-        return super.service.pageListVoByUserId(userId);
+    @GetMapping("/pagePostVoByUserId")
+    public List<PostVo> pagePostVoByUserId(@RequestParam("userId") String userId) {
+        return super.service.pagePostVoByUserId(userId);
     }
 }

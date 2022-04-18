@@ -13,6 +13,9 @@
         <if test="reviewPostId != null">
             review_post_id,
         </if>
+        <if test="reviewPostTitle != null">
+            review_post_title,
+        </if>
         <if test="reviewStatus != null">
             review_status,
         </if>
@@ -34,6 +37,9 @@
         </if>
         <if test="reviewPostId != null">
             #{reviewPostId},
+        </if>
+        <if test="reviewPostTitle != null">
+            #{reviewPostTitle},
         </if>
         <if test="reviewStatus != null">
             #{reviewStatus},
@@ -92,9 +98,12 @@
     </select>
     
     <sql id="select">
-        select review_id, review_username, review_post_id,
-        review_status,review_fail_reason, review_update_time
-        from blog_post_review
+        select
+            review_id, review_username, review_post_id,
+            review_post_title,review_status,review_fail_reason,
+            review_update_time
+        from
+            blog_post_review
     </sql>
 
 
@@ -102,6 +111,7 @@
         <id property="reviewId" column="review_id" />
         <result property="reviewUsername" column="review_username" />
         <result property="reviewPostId" column="review_post_id" />
+        <result property="reviewPostTitle" column="review_post_title" />
         <result property="reviewStatus" column="review_status" />
         <result property="reviewFailReason" column="review_fail_reason" />
         <result property="reviewCreateTime" column="review_create_time" />

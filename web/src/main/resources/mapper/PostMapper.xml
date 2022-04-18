@@ -135,17 +135,22 @@
         <include refid="common-select" />
     </select>
 
-    <select id="pageList" resultMap="post">
+    <select id="page" resultMap="post">
         <include refid="common-select" />
     </select>
 
-    <select id="pageListByQuery" resultMap="post">
+    <select id="pageByQuery" resultMap="post">
         <include refid="common-select" />
         <include refid="query" />
     </select>
 
-    <select id="pageListVo" resultMap="postVo">
+    <select id="pagePostVo" resultMap="postVo">
         <include refid="common-select" />
+    </select>
+
+    <select id="pagePostVoByQuery" resultMap="postVo">
+        <include refid="common-select" />
+        <include refid="query" />
     </select>
 
     <select id="pageListVoBySortId" resultMap="postVo">
@@ -153,12 +158,12 @@
         where sort_id = #{id}
     </select>
 
-    <select id="pageListVoByTagId" resultMap="postVo">
+    <select id="pagePostVoByTagId" resultMap="postVo">
         <include refid="common-select" />
         where FIND_IN_SET(#{id}, post_tags)
     </select>
 
-    <select id="pageListVoByUserId" resultMap="postVo">
+    <select id="pagePostVoByUserId" resultMap="postVo">
         <include refid="common-select" />
         where user_id = #{id}
     </select>
@@ -197,7 +202,7 @@
         <result property="postTags" column="post_tags" typeHandler="io.github.yu.common.handler.ListTypeHandler"/>
     </resultMap>
 
-    <resultMap id="postVo" type="postVo">
+    <resultMap id="postVo" type="io.github.yu.blog.model.PostVo">
         <id property="postId" column="post_id" />
         <result property="postTitle" column="post_title" />
         <result property="postContent" column="post_content" />

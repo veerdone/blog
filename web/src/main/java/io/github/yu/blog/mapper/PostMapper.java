@@ -21,13 +21,15 @@ public interface PostMapper extends BaseMapper<Post, PostQuery> {
     void updateViewsByPostId(@Param("postId")Long postId, @Param("count") Integer count);
 
     @Override
-    List<Post> pageListByQuery(@Param("query") PostQuery query);
+    List<Post> pageByQuery(@Param("query") PostQuery query);
 
     /**
      * 分页获取文章vo
      * @return 文章vo
      */
-    List<PostVo> pageListVo();
+    List<PostVo> pagePostVo();
+
+    List<PostVo> pagePostVoByQuery(@Param("query")PostQuery query);
 
     /**
      * 根据分类id获取文章vo
@@ -41,7 +43,7 @@ public interface PostMapper extends BaseMapper<Post, PostQuery> {
      * @param id 标签id
      * @return 文章vo
      */
-    List<PostVo> pageListVoByTagId(Serializable id);
+    List<PostVo> pagePostVoByTagId(Serializable id);
 
-    List<PostVo> pageListVoByUserId(Serializable id);
+    List<PostVo> pagePostVoByUserId(Serializable id);
 }

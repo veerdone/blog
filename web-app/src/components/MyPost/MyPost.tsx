@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, message, Modal, Popconfirm, Skeleton, Space, Table, Tag} from 'antd';
-import {deletePostById, listSort, pageListVoByCurrentUserId} from "@/api/post";
+import {deletePostById, listSort, pagePostVoByCurrentUserId} from "@/api/post";
 import {currentUserInfo} from "@/pages";
 import Write from "@/pages/Post/Write";
 
@@ -15,7 +15,7 @@ const MyPost = () => {
 
 	const getPost = async (page: number = pagination.current, pageSize: number = pagination.pageSize) => {
 		setLoading(true);
-		const {data} = await pageListVoByCurrentUserId(user?.userId, page, pageSize);
+		const {data} = await pagePostVoByCurrentUserId(user?.userId, page, pageSize);
 		setPostList(data.list);
 		setPagination({total: data.total, current: page, pageSize: pageSize});
 		setLoading(false);

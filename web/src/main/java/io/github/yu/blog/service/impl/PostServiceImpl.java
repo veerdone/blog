@@ -55,6 +55,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
         if (post.getStatus() != 1) {
             PostReview postReview = new PostReview();
             postReview.setReviewPostId(post.getPostId());
+            postReview.setReviewPostTitle(post.getPostTitle());
             postReviewService.insert(postReview);
         }
         super.mapper.insert(post);
@@ -69,6 +70,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
             post.setStatus(2);
             PostReview postReview = new PostReview();
             postReview.setReviewPostId(post.getPostId());
+            postReview.setReviewPostTitle(post.getPostTitle());
             postReviewService.insert(postReview);
         }
         super.mapper.updateById(post);
@@ -81,7 +83,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
 
     @Override
     public List<PostVo> listVo() {
-        List<PostVo> listVo = super.mapper.pageListVo();
+        List<PostVo> listVo = super.mapper.pagePostVo();
         setTag(listVo);
         return listVo;
     }
@@ -91,22 +93,29 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
      * @return postVo
      */
     @Override
-    public List<PostVo> pageListVo() {
-        List<PostVo> listVo = super.mapper.pageListVo();
+    public List<PostVo> pagePostVo() {
+        List<PostVo> listVo = super.mapper.pagePostVo();
         setTag(listVo);
         return listVo;
     }
 
     @Override
-    public List<PostVo> pageListVoBySortId(Serializable id) {
+    public List<PostVo> pagePostVoQuery(PostQuery query) {
+        List<PostVo> listVo = super.mapper.pagePostVoByQuery(query);
+        setTag(listVo);
+        return listVo;
+    }
+
+    @Override
+    public List<PostVo> pagePostVoBySortId(Serializable id) {
         List<PostVo> listVo = super.mapper.pageListVoBySortId(id);
         setTag(listVo);
         return listVo;
     }
 
     @Override
-    public List<PostVo> pageListVoByTagId(Serializable id) {
-        List<PostVo> listVo = super.mapper.pageListVoByTagId(id);
+    public List<PostVo> pagePostVoByTagId(Serializable id) {
+        List<PostVo> listVo = super.mapper.pagePostVoByTagId(id);
         setTag(listVo);
         return listVo;
     }
@@ -120,14 +129,14 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
 
     @Override
     public List<PostVo> listVoByTagId(Serializable id) {
-        List<PostVo> listVo = super.mapper.pageListVoByTagId(id);
+        List<PostVo> listVo = super.mapper.pagePostVoByTagId(id);
         setTag(listVo);
         return listVo;
     }
 
     @Override
-    public List<PostVo> pageListVoByUserId(Serializable id) {
-        List<PostVo> listVo = super.mapper.pageListVoByUserId(id);
+    public List<PostVo> pagePostVoByUserId(Serializable id) {
+        List<PostVo> listVo = super.mapper.pagePostVoByUserId(id);
         setTag(listVo);
         return listVo;
     }

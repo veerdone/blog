@@ -41,10 +41,10 @@ public abstract class BaseServiceImpl<T, Q extends T, M extends BaseMapper<T, Q>
     }
 
     public List<T> pageList() {
-        return this.mapper.pageList();
+        return this.mapper.page();
     }
 
     public List<T> pageListByQuery(Q query) {
-        return this.mapper.pageListByQuery(query);
+        return this.mapper.pageByQuery(query);
     }
 }

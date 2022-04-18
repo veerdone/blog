@@ -18,7 +18,7 @@ public interface BaseMapper<T, Q extends T> {
 
     List<T> list();
 
-    List<T> pageList();
+    List<T> page();
 
-    List<T> pageListByQuery(Q query);
+    List<T> pageByQuery(Q query);
 }
