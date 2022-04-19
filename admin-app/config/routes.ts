@@ -35,8 +35,8 @@
 				path: "./list",
 				component: "@/pages/post/list",
 				name: "所有文章",
-				"title": "所有文章"
-			}
+				title: "所有文章"
+			},
 		]
 	},
 	{
@@ -64,6 +64,11 @@
 				title: "登录历史"
 			}
 		]
+	},
+	{
+		path: "/view/:id",
+		component: "@/pages/post/view",
+		layout: false
 	},
 	{
 		path: '/',

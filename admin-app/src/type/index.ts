@@ -24,6 +24,7 @@ declare interface PostReview {
 	reviewId: string,
 	reviewName: string,
 	reviewPostId: string,
+	reviewPostTitle: string,
 	reviewStatus: number,
 	reviewFailReason: string,
 	reviewCreateTime: string,

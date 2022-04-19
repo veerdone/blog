@@ -15,3 +15,10 @@ export function pagePostVoByQuery(query: any) {
 		data: {...query}
 	})
 }
+
+export function getPostById(postId: string) {
+	return service({
+		url: `/post/getById/${postId}`,
+		method: "GET",
+	})
+}

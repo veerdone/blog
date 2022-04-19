@@ -86,7 +86,7 @@
         where review_id = #{id}
     </select>
 
-    <select id="pageListByQuery" resultMap="postReview">
+    <select id="pageByQuery" resultMap="postReview">
         <include refid="select" />
         <if test="query != null">
             <where>
@@ -101,7 +101,7 @@
         select
             review_id, review_username, review_post_id,
             review_post_title,review_status,review_fail_reason,
-            review_update_time
+            review_create_time, review_update_time
         from
             blog_post_review
     </sql>

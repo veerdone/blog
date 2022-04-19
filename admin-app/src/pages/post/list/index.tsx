@@ -6,12 +6,6 @@ import {listSort, pagePostVoByQuery} from "@/api/post";
 
 const PostList: React.FC = () => {
 	const [sortList, setSortList] = useState<Sort[]>([]);
-	const [postList, setPostList] = useState<PostVo[]>([]);
-	const [pagination, setPagination] = useState({
-		current: 1,
-		pageSize: 10,
-		total: 0
-	});
 
 	const getSort = async () => {
 		const data: any = await listSort();
@@ -24,8 +18,7 @@ const PostList: React.FC = () => {
 			pageSize: param.pageSize,
 			...param
 		});
-		setPostList(data.list);
-		setPagination({current: param.current, pageSize: param.pageSize, total: data.total});
+		return data;
 	};
 
 	useEffect(() => {
@@ -91,18 +84,18 @@ const PostList: React.FC = () => {
 		}
 	];
 
-	return(
+	return (
 		<ProTable columns={columns}
-		dataSource={postList} rowKey={"postId"}
-		pagination={{...pagination}}
-		request={async (params, sort, filter) => {
-			const data: any = await getPost(params);
-			return {
-				data: data?.list,
-				success: data?.status === 200,
-				total: data?.total
-			}
-		}}
+				  rowKey={"postId"}
+				  pagination={{pageSize: 10}}
+				  request={async (params, sort, filter) => {
+					  const data: any = await getPost(params);
+					  return {
+						  data: data?.list,
+						  success: data?.status === 200,
+						  total: data?.total
+					  }
+				  }}
 		/>
 	)
 };
