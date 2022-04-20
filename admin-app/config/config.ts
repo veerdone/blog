@@ -34,9 +34,6 @@ export default defineConfig({
     // https://ant.design/docs/react/customize-theme-variable-cn
     'root-entry-name': 'variable',
   },
-  // esbuild is father build tools
-  // https://umijs.org/plugins/plugin-esbuild
-  esbuild: {},
   title: false,
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
