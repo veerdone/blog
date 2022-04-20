@@ -25,3 +25,11 @@ export function pageUserByQuery(query: any) {
 		data: {...query}
 	})
 }
+
+export function updateUserById(user: any) {
+	return service({
+		url: "/user/updateById",
+		method: "PUT",
+		data: user
+	})
+}

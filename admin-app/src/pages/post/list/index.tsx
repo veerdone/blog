@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import ProTable, {ProColumns} from "@ant-design/pro-table";
-import {Space, Tag} from "antd";
+import {Select, Space, Tag} from "antd";
 import {listSort, pagePostVoByQuery} from "@/api/post";
 import { Link } from "umi";
 
-
+/**
+ * 所有文章页
+ * @constructor
+ */
 const PostList: React.FC = () => {
 	const [sortList, setSortList] = useState<Sort[]>([]);
 
@@ -16,7 +19,6 @@ const PostList: React.FC = () => {
 	const getPost = async (param: any) => {
 		const data: any = await pagePostVoByQuery({
 			startPage: param.current,
-			pageSize: param.pageSize,
 			...param
 		});
 		return data;
@@ -36,12 +38,16 @@ const PostList: React.FC = () => {
 		{
 			title: "浏览量",
 			dataIndex: "postViews",
-			valueType: "digit"
+			valueType: "digit",
+			width: 80,
+			search: false
 		},
 		{
 			title: "点赞量",
 			dataIndex: "postLikes",
-			valueType: "digit"
+			valueType: "digit",
+			width: 80,
+			search: false
 		},
 		{
 			"title": "创建时间",
@@ -51,6 +57,7 @@ const PostList: React.FC = () => {
 		{
 			title: "状态",
 			dataIndex: "status",
+			width: 100,
 			valueEnum: {
 				0: {text: "公开", status: "Success"},
 				1: {text: "仅自己可见", status: "Default"},
@@ -62,6 +69,8 @@ const PostList: React.FC = () => {
 		{
 			title: "分类",
 			dataIndex: "sortId",
+			hideInSearch: true,
+			width: 80,
 			render: (_, entity) => (
 				<Space>
 					{sortList.filter(sort => sort.sortId == entity.sortId)
@@ -70,8 +79,23 @@ const PostList: React.FC = () => {
 			)
 		},
 		{
+			title: "分类",
+			dataIndex: "sortId",
+			hideInTable: true,
+			renderFormItem: schema => {
+				return (
+					<Select allowClear>
+						{sortList.map(sort => {
+							return <Select.Option value={sort.sortId} key={sort.sortId}>{sort.sortName}</Select.Option>
+						})}
+					</Select>
+				)
+			}
+		},
+		{
 			title: "标签",
 			dataIndex: "tags",
+			search: false,
 			render: (_, entity) => (
 				<Space>
 					{entity.tags.map(tag => <Tag key={tag.tagId}>{tag.tagName}</Tag>)}

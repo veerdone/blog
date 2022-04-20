@@ -57,3 +57,14 @@ declare interface Sort {
 	sortId: string,
 	sortName: string
 }
+
+declare interface LoginHistory {
+	id: string,
+	userId: string,
+	userAccount: string,
+	username: string,
+	loginTime: string,
+	loginSite: string,
+	loginIp: string,
+	browserName: string
+}

@@ -5,6 +5,7 @@ import io.github.yu.base.service.impl.BaseServiceImpl;
 import io.github.yu.blog.mapper.LoginHistoryMapper;
 import io.github.yu.blog.model.IpResult;
 import io.github.yu.blog.model.LoginHistory;
+import io.github.yu.blog.model.LoginHistoryQuery;
 import io.github.yu.blog.service.LoginHistoryService;
 import io.github.yu.common.util.IdUtil;
 import io.github.yu.common.util.RequestUtil;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 
 @Service
 @Slf4j
-public class LoginHistoryServiceImpl extends BaseServiceImpl<LoginHistory, LoginHistory, LoginHistoryMapper>
+public class LoginHistoryServiceImpl extends BaseServiceImpl<LoginHistory, LoginHistoryQuery, LoginHistoryMapper>
         implements LoginHistoryService {
     @Value("${blog.ip.key}")
     private String key;

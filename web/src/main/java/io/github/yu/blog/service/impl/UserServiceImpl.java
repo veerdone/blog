@@ -115,6 +115,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
         LoginHistory history = new LoginHistory();
         history.setUserId(databaseUser.getUserId());
         history.setUserAccount(databaseUser.getAccount());
+        history.setUsername(databaseUser.getUsername());
         return history;
     }
 

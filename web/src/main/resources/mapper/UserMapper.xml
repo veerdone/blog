@@ -131,37 +131,37 @@
     </update>
 
     <select id="getByAccount" resultMap="user">
-        <include refid="common-select" />
+        <include refid="common-select"/>
         where account = #{account}
     </select>
 
     <select id="getByTelephone" resultMap="user">
-        <include refid="common-select" />
+        <include refid="common-select"/>
         where telephone = #{telephone}
     </select>
 
     <select id="getById" resultMap="user">
-        <include refid="common-select" />
+        <include refid="common-select"/>
         where user_id = #{userId}
     </select>
 
     <select id="getByName" resultMap="user">
-        <include refid="common-select" />
+        <include refid="common-select"/>
         where username = #{username}
     </select>
 
     <select id="list" resultMap="user">
-        <include refid="noPass-select" />
+        <include refid="noPass-select"/>
     </select>
 
     <select id="page" resultMap="user">
-        <include refid="common-select" />
+        <include refid="common-select"/>
     </select>
 
     <select id="pageByQuery" resultMap="user">
-        <include refid="noPass-select" />
+        <include refid="noPass-select"/>
         <where>
-            <include refid="common-query" />
+            <include refid="common-query"/>
         </where>
     </select>
 
@@ -185,21 +185,35 @@
 
     <sql id="common-query">
         <if test="query != null">
-
+            <if test="query.startTime != null and query.endTime != null">
+                create_time between #{query.startTime} and #{query.endTime}
+            </if>
+            <if test="query.status != null">
+                and status = #{query.status}
+            </if>
+            <if test="query.account != null and query.account != ''">
+                and account = #{query.account}
+            </if>
+            <if test="query.sex != null">
+                and sex = #{query.sex}
+            </if>
+            <if test="query.username != null and query.username != ''">
+                and username like #{query.username}"%"
+            </if>
         </if>
     </sql>
     <resultMap id="user" type="io.github.yu.blog.model.User">
-        <id property="userId" column="user_id" />
+        <id property="userId" column="user_id"/>
         <result property="account" column="account"/>
-        <result property="username" column="username" />
-        <result property="password" column="password" />
-        <result property="telephone" column="telephone" />
-        <result property="sex" column="sex" />
-        <result property="fans" column="fans" />
-        <result property="focus" column="focus" />
-        <result property="likes" column="likes" />
-        <result property="createTime" column="create_time" />
-        <result property="status" column="status" />
-        <result property="icon" column="icon" />
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="telephone" column="telephone"/>
+        <result property="sex" column="sex"/>
+        <result property="fans" column="fans"/>
+        <result property="focus" column="focus"/>
+        <result property="likes" column="likes"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+        <result property="icon" column="icon"/>
     </resultMap>
 </mapper>

@@ -16,6 +16,8 @@ public class LoginHistory {
     private Long userId;
     // 用户账号
     private String userAccount;
+    // 用户名
+    private String username;
     // 登录时间
     private LocalDateTime loginTime;
     // 登录ip

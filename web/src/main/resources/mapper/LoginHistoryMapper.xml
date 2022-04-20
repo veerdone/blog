@@ -8,6 +8,7 @@
         #{id},
         #{userId},
         #{userAccount},
+        #{username},
         #{loginTime},
         #{loginSite},
         #{loginIp},
@@ -19,12 +20,33 @@
         <include refid="common-select" />
     </select>
 
-    <select id="pageList" resultMap="loginHistory">
+    <select id="page" resultMap="loginHistory">
         <include refid="common-select" />
     </select>
 
+    <select id="pageByQuery" resultMap="loginHistory">
+        <include refid="common-select" />
+        <if test="query != null">
+            <where>
+                <if test="query.userAccount != null and query.userAccount != ''">
+                    user_account = #{query.userAccount}
+                </if>
+                <if test="query.username != null and query.username != ''">
+                    and username like #{query.username}"%"
+                </if>
+                <if test="query.loginSite != null and query.loginSite != ''">
+                    and login_site like #{query.loginSite}
+                </if>
+                <if test="query.startTime != null and query.endTime != null">
+                    and login_time between #{query.startTime} and #{query.endTime}
+                </if>
+            </where>
+        </if>
+    </select>
+
+
     <sql id="common-select">
-        select id, user_id, user_account, login_time, login_site, login_ip, browser_name
+        select id, user_id, user_account, username, login_time, login_site, login_ip, browser_name
         from login_history
     </sql>
 
@@ -32,6 +54,7 @@
         <id property="id" column="id" />
         <result property="userId" column="user_id" />
         <result property="userAccount" column="user_account" />
+        <result property="username" column="username" />
         <result property="loginIp" column="login_ip" />
         <result property="loginSite" column="login_site" />
         <result property="loginTime" column="login_time" />

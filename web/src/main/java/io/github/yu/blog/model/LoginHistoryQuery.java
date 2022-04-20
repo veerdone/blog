@@ -5,8 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class UserQuery extends User {
-    private String newPassword;
+public class LoginHistoryQuery extends LoginHistory {
     private int startPage;
     private int pageSize;
     private LocalDateTime startTime;

@@ -176,11 +176,20 @@
 
     <sql id="query">
         <if test="query != null">
+        <where>
             <if test="query.startTime != null and query.endTime != null">
-                <where>
-                    create_time between #{query.startTime} and #{query.endTime}
-                </where>
+                create_time between #{query.startTime} and #{query.endTime}
             </if>
+            <if test="query.postTitle != null and query.postTitle != ''">
+                and post_title = #{query.postTitle}"%"
+            </if>
+            <if test="query.status != null">
+                and status = #{query.status}
+            </if>
+            <if test="query.sortId != null">
+                and sort_id = #{query.sortId}
+            </if>
+        </where>
             <if test="query.column != null and query.order != null">
                 order by #{query.column} #{query.order}
             </if>
