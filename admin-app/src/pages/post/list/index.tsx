@@ -13,7 +13,7 @@ const PostList: React.FC = () => {
 
 	const getSort = async () => {
 		const data: any = await listSort();
-		setSortList(data.list);
+		setSortList(data?.list || []);
 	};
 
 	const getPost = async (param: any) => {

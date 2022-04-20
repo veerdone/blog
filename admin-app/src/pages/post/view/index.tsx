@@ -25,6 +25,9 @@ const Code = {
 				{children}
 			</code>
 		)
+	},
+	img(props: any) {
+		return <img {...props} style={{maxWidth: "100%", maxHeight: 400}}  alt={""}/>
 	}
 };
 

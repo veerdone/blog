@@ -66,6 +66,19 @@
 		]
 	},
 	{
+		path: "/my",
+		name: "个人",
+		icon: "home",
+		routes: [
+			{
+				path: "./center",
+				component: "@/pages/my/center",
+				name: "个人主页",
+				title: "个人主页"
+			}
+		]
+	},
+	{
 		path: "/view/:id",
 		component: "@/pages/post/view",
 		layout: false
