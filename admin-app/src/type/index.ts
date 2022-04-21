@@ -13,6 +13,14 @@ declare interface User {
   icon: string
 }
 
+declare interface AdminUser {
+	userId: string,
+	account: string,
+	username: string,
+	password: string,
+	telephone: string,
+}
+
 declare interface LoginParams {
 	username: string,
 	account: string,
@@ -29,6 +37,21 @@ declare interface PostReview {
 	reviewFailReason: string,
 	reviewCreateTime: string,
 	reviewUpdateTime: string
+}
+
+declare interface Post {
+	postId: string,
+	postTitle: string,
+	postContent: string,
+	userId: string,
+	postViews: string,
+	postLikes: string,
+	createTime: string,
+	updateTime: string,
+	status: string,
+	sortId: string,
+	titlePicture: string,
+	postTags: string[],
 }
 
 declare interface PostVo {

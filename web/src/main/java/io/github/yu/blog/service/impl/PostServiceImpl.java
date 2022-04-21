@@ -32,6 +32,11 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
     @Autowired
     private PostTagService postTagService;
 
+    @Override
+    public List<Post> viewsLimit(String type) {
+        return super.mapper.viewsLimit(type);
+    }
+
     /**
      * 插入文章，并且插入文章审核
      * @param post 文章

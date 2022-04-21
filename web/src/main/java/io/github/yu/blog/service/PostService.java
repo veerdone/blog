@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface PostService extends BaseService<Post, PostQuery> {
+    List<Post> viewsLimit(String type);
+
     void updateViewsByPostId(Long postId, Integer count);
 
     List<PostVo> listVo();

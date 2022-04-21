@@ -168,6 +168,29 @@
         where user_id = #{id}
     </select>
 
+    <select id="viewsLimit" resultMap="post">
+        select
+            post_title, post_views
+        from
+            blog_post
+        <where>
+            <choose>
+                <when test="type == 'year'">
+                    YEAR(create_time) = YEAR(NOW())
+                </when>
+                <when test="type == 'month'">
+                    DATE_FORMAT(create_time, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+                </when>
+                <when test="type == 'week'">
+                    YEARWEEK(create_time) = YEARWEEK(NOW())
+                </when>
+                <when test="type == 'all'" />
+            </choose>
+        </where>
+        order by post_views desc
+        limit 5
+    </select>
+
     <sql id="common-select">
         select post_id, post_title, post_content, user_id, post_views, post_likes,
         create_time, update_time, status, sort_id, title_picture, post_tags

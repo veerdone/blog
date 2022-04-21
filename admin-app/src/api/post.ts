@@ -22,3 +22,13 @@ export function getPostById(postId: string) {
 		method: "GET",
 	})
 }
+
+export function viewCharts(type: string) {
+	return service({
+		url: "/post/charts/view",
+		method: "GET",
+		params: {
+			type: type
+		}
+	})
+}

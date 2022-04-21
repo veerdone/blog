@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.yu.blog.mapper.AdminUserMapper">
+    <insert id="insert">
+        insert into
+            blog_admin_user
+        values(
+            #{userId},
+            #{username},
+            #{telephone},
+            #{account}
+        )
+    </insert>
+
+    <delete id="deleteById">
+        delete from
+            blog_admin_user
+        where
+            user_id = #{userId}
+    </delete>
+
+
+    <update id="updateById">
+        update
+            blog_admin_user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId}
+            </if>
+        </set>
+        where
+            user_id = #{userId}
+    </update>
+
+    <select id="getByAccount" resultMap="user">
+        <include refid="comment-select" />
+        where
+            account = #{account}
+    </select>
+
+    <select id="getByTelephone" resultMap="user">
+        <include refid="comment-select" />
+        where
+            telephone = #{telephone}
+    </select>
+
+    <select id="getById" resultMap="user">
+        <include refid="comment-select" />
+        where
+            user_id = #{userId}
+    </select>
+
+    <select id="list" resultMap="user">
+        <include refid="comment-select" />
+    </select>
+
+    <sql id="comment-select">
+        select
+            user_id,
+            username,
+            telephone,
+            account
+        from
+            blog_admin_user
+    </sql>
+
+
+    <resultMap id="user" type="user">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="telephone" column="telephone" />
+        <result property="account" column="account" />
+    </resultMap>
+</mapper>

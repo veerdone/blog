@@ -26,9 +26,9 @@ public class Post {
     // 文章作者id
     private Long userId;
     // 浏览量
-    private Long postViews;
+    private Integer postViews;
     // 点赞数
-    private Long postLikes;
+    private Integer postLikes;
     // 创建时间
     private LocalDateTime createTime;
     // 修改时间

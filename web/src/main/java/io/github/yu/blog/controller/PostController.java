@@ -16,6 +16,11 @@ import java.util.List;
 @RequestMapping("/post")
 public class PostController extends BaseController<Post, PostQuery, PostService>  {
 
+    @GetMapping("/charts/view")
+    public List<Post> viewsLimit(@RequestParam("type") String type) {
+        return super.service.viewsLimit(type);
+    }
+
     @Override
     @PostMapping("/insert")
     public void insert(@RequestBody @Validated Post post) {

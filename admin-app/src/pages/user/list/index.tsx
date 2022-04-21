@@ -1,9 +1,10 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import type {ProColumns} from "@ant-design/pro-table";
 import ProTable from "@ant-design/pro-table";
 import {pageUserByQuery, updateUserById} from "@/api/user";
-import {Button, message, Popconfirm} from "antd";
+import {Button, message, Modal, Popconfirm} from "antd";
 import { ManOutlined, WomanOutlined } from "@ant-design/icons";
+import Detail from "@/pages/user/Detail";
 
 /**
  * 用户列表页
@@ -11,6 +12,8 @@ import { ManOutlined, WomanOutlined } from "@ant-design/icons";
  */
 const UserList: React.FC = () => {
 	const ref = useRef<any>();
+	const [showUserDetail, setShowUserDetail] = useState(false);
+	const [userId, setUserId] = useState("");
 
 	const updateUser = async (user: any) => {
 		const {status} = await updateUserById(user);
@@ -18,6 +21,11 @@ const UserList: React.FC = () => {
 			message.success("操作成功!");
 			ref?.current?.reload();
 		}
+	};
+
+	const handleView = (user: User) => {
+		setUserId(user.userId);
+		setShowUserDetail(true);
 	};
 
 	const Columns: ProColumns<User>[] = [
@@ -35,7 +43,7 @@ const UserList: React.FC = () => {
 		{
 			title: "手机号",
 			dataIndex: "telephone",
-			copyable: true
+			copyable: true,
 		},
 		{
 			title: "性别",
@@ -51,13 +59,13 @@ const UserList: React.FC = () => {
 			title: "粉丝数",
 			dataIndex: "fans",
 			valueType: "digit",
-			search: false
+			search: false,
 		},
 		{
 			title: "创建时间",
 			dataIndex: "createTime",
 			valueType: "dateTime",
-			hideInSearch: true
+			hideInSearch: true,
 		},
 		{
 			title: "创建时间",
@@ -85,7 +93,12 @@ const UserList: React.FC = () => {
 		{
 			title: "操作",
 			valueType: "option",
+			fixed: "right",
+			width: 250,
 			render: (dom, entity) => [
+				<Button type={"text"} onClick={() => handleView(entity)} style={{color: "#1890ff"}}>
+					查看
+				</Button>,
 				<Button key={"1"}
 						style={{borderRadius: 10}}
 						type={"primary"}
@@ -124,6 +137,7 @@ const UserList: React.FC = () => {
 		<>
 			<ProTable columns={Columns}
 					  actionRef={ref}
+					  scroll={{x: 1200}}
 					  request={async (params) => {
 						  const data: any = await getUser(params);
 						  return {
@@ -134,6 +148,13 @@ const UserList: React.FC = () => {
 					  }}
 					  rowKey={"userId"}
 			/>
+
+			<Modal visible={showUserDetail} footer={null} destroyOnClose={true} onCancel={() => {
+				setShowUserDetail(false);
+				setUserId("");
+			}}>
+				<Detail userId={userId}/>
+			</Modal>
 		</>
 	)
 };

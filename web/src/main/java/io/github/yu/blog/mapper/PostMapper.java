@@ -13,6 +13,8 @@ import java.util.List;
  * 文章mapper
  */
 public interface PostMapper extends BaseMapper<Post, PostQuery> {
+    List<Post> viewsLimit(String type);
+
     /**
      * 根据博客id和count更新博客浏览量
      * @param postId 博客id

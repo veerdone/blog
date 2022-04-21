@@ -49,6 +49,12 @@
 				component: "@/pages/user/list",
 				name: "所有用户",
 				title: "所有用户"
+			},
+			{
+				path: "./admin",
+				component: "@/pages/user/admin",
+				name: "管理员",
+				title: "管理员"
 			}
 		]
 	},
