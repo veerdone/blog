@@ -32,3 +32,13 @@ export function viewCharts(type: string) {
 		}
 	})
 }
+
+export function likesCharts(type: string) {
+	return service({
+		url: "/post/charts/likes",
+		method: "GET",
+		params: {
+			type: type
+		}
+	})
+}

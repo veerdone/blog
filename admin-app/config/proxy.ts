@@ -17,6 +17,10 @@ export default {
 			changeOrigin: true,
 			pathRewrite: {'^/api': ''},
 		},
+		"/file": {
+			target: "http://localhost:8088",
+			changeOrigin: true,
+		}
 	},
 	test: {
 		'/api/': {

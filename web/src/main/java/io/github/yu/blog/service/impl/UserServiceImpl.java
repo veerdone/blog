@@ -1,5 +1,6 @@
 package io.github.yu.blog.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import io.github.yu.base.service.impl.BaseServiceImpl;
 import io.github.yu.blog.mapper.UserMapper;
 import io.github.yu.blog.model.LoginHistory;
@@ -55,12 +56,21 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
     public void updateByQuery(UserQuery query) {
         Long userId = query.getUserId();
         User user = super.mapper.getById(userId);
-        if (passEncode.match(user.getPassword(), query.getPassword())) {
-            query.setPassword(passEncode.Encode(query.getNewPassword()));
-            super.mapper.updateById(query);
-            return;
+        if (StrUtil.isNotEmpty(query.getUsername())) {
+            if (!user.getUsername().equals(query.getUsername())
+                    && super.mapper.getByName(query.getUsername()) != null) {
+                throw new UsernameExistException();
+            }
         }
-        throw new PasswordErrorException();
+        if (StrUtil.isNotEmpty(query.getPassword())) {
+            if (passEncode.match(user.getPassword(), query.getPassword())) {
+                query.setPassword(passEncode.Encode(query.getNewPassword()));
+                super.mapper.updateById(query);
+                return;
+            }
+            throw new PasswordErrorException();
+        }
+        super.mapper.updateById(query);
     }
 
     @Override
@@ -94,6 +104,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserQuery, UserMapper
     @Override
     public User getCurrentUser() {
         String account = RequestUtil.getFromHeader("account");
+        if (StrUtil.isEmpty(account)) {
+            return null;
+        }
         return super.mapper.getByAccount(account);
     }
 

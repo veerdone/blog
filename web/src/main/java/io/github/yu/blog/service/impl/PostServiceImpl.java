@@ -37,6 +37,11 @@ public class PostServiceImpl extends BaseServiceImpl<Post, PostQuery, PostMapper
         return super.mapper.viewsLimit(type);
     }
 
+    @Override
+    public List<Post> likesLimit(String type) {
+        return super.mapper.likesLimit(type);
+    }
+
     /**
      * 插入文章，并且插入文章审核
      * @param post 文章

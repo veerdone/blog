@@ -37,11 +37,16 @@ public class FileUploadServiceImpl implements FileUploadService {
         File file = new File(path + filename);
         multipartFile.transferTo(file);
 
-        return ObjectResult.result(filename);
+        return ObjectResult.result("/file/".concat(filename));
     }
 
+    /**
+     * 根据图片名称删除图片
+     * @param filename 图片名称
+     */
     @Override
-    public void deleteImage(String filename) throws IOException {
+    public void deleteImage(String filename)  {
+        filename = filename.substring(6);
         File file = new File(path + filename);
         if (file.exists()) {
             if (file.isDirectory()) {
@@ -51,6 +56,11 @@ public class FileUploadServiceImpl implements FileUploadService {
         }
     }
 
+    /**
+     * 检查文件后缀是否符合规范, 如不符合抛出异常
+     * @param filename 文件名称
+     * @return 文件后缀
+     */
     private String checkAndGetFileSuffix(String filename) {
         String suffix = FileUtil.getSuffix(filename);
         if (suffix.equals("jpg") || suffix.equals("jpeg") || suffix.equals("png")) {

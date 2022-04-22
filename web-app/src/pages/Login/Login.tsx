@@ -54,8 +54,10 @@ const Login = () => {
 
 	const upload = async (file: any) => {
 		const {data} = await uploadImage(file);
-		const filename = data.data;
-		setIcon(filename);
+		if (data?.status === 200) {
+			const filename = data.data;
+			setIcon(filename);
+		}
 		return ""
 	};
 

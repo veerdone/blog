@@ -11,6 +11,8 @@ import java.util.List;
 public interface PostService extends BaseService<Post, PostQuery> {
     List<Post> viewsLimit(String type);
 
+    List<Post> likesLimit(String type);
+
     void updateViewsByPostId(Long postId, Integer count);
 
     List<PostVo> listVo();

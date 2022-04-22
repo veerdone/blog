@@ -151,7 +151,7 @@
     </select>
 
     <select id="list" resultMap="user">
-        <include refid="noPass-select"/>
+        <include refid="common-select"/>
     </select>
 
     <select id="page" resultMap="user">
@@ -159,7 +159,7 @@
     </select>
 
     <select id="pageByQuery" resultMap="user">
-        <include refid="noPass-select"/>
+        <include refid="common-select"/>
         <where>
             <include refid="common-query"/>
         </where>
@@ -168,15 +168,6 @@
     <sql id="common-select">
         select
             user_id,account,username,password,
-            telephone,sex,fans,focus,likes,
-            create_time,status,icon
-        from
-            blog_user
-    </sql>
-
-    <sql id="noPass-select">
-        select
-            user_id,account,username,
             telephone,sex,fans,focus,likes,
             create_time,status,icon
         from

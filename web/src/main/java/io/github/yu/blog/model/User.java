@@ -1,7 +1,7 @@
 package io.github.yu.blog.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -26,6 +26,7 @@ public class User {
 
     // 用户密码
     @NotEmpty(message = "密码不能为空")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     // 用户手机号

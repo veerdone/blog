@@ -184,10 +184,32 @@
                 <when test="type == 'week'">
                     YEARWEEK(create_time) = YEARWEEK(NOW())
                 </when>
-                <when test="type == 'all'" />
             </choose>
         </where>
         order by post_views desc
+        limit 5
+    </select>
+
+    <select id="likesLimit" resultMap="post">
+        select
+            post_title,
+            post_likes
+        from
+            blog_post
+        <where>
+            <choose>
+                <when test="type == 'year'">
+                    YEAR(create_time) = YEAR(NOW())
+                </when>
+                <when test="type == 'month'">
+                    DATE_FORMAT(create_time, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+                </when>
+                <when test="type == 'week'">
+                    YEARWEEK(create_time) = YEARWEEK(NOW())
+                </when>
+            </choose>
+        </where>
+        order by post_likes desc
         limit 5
     </select>
 

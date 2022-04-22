@@ -21,6 +21,11 @@ public class PostController extends BaseController<Post, PostQuery, PostService>
         return super.service.viewsLimit(type);
     }
 
+    @GetMapping("/charts/likes")
+    public List<Post> likesLimit(@RequestParam("type") String type) {
+        return super.service.likesLimit(type);
+    }
+
     @Override
     @PostMapping("/insert")
     public void insert(@RequestBody @Validated Post post) {

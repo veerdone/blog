@@ -55,3 +55,18 @@ export function getUserById(userId: string) {
 		method: "GET"
 	})
 }
+
+export function updateUserByQuery(user: any) {
+	return service({
+		url: "/user/updateByQuery",
+		method: "PUT",
+		data: user
+	})
+}
+
+export function getCurrentUser() {
+	return service({
+		url: "/user/getCurrentUser",
+		method: "GET"
+	})
+}

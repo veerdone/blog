@@ -5,6 +5,9 @@ import moment from "moment";
 import "moment/locale/zh-cn";
 import Views from "@/components/charts/views";
 import ProCard from "@ant-design/pro-card";
+import Likes from "@/components/charts/likes";
+
+
 moment.locale("zh-cn");
 
 const Welcome: React.FC = () => {
@@ -17,7 +20,7 @@ const Welcome: React.FC = () => {
 				</ProCard>
 				<Views />
 			</ProCard>
-
+			<Likes />
 		</PageContainer>
 	);
 };

@@ -15,6 +15,8 @@ import java.util.List;
 public interface PostMapper extends BaseMapper<Post, PostQuery> {
     List<Post> viewsLimit(String type);
 
+    List<Post> likesLimit(String type);
+
     /**
      * 根据博客id和count更新博客浏览量
      * @param postId 博客id

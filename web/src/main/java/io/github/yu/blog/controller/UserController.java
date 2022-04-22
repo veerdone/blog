@@ -26,6 +26,7 @@ public class UserController extends BaseController<User, UserQuery, UserService>
 
     @PostMapping("/loginByAccount")
     public User loginByAccount(@RequestBody User user) {
+        System.out.println(user);
         if (StrUtil.isEmpty(user.getAccount())) {
             throw new AccountOrPassErrorException();
         }
@@ -47,11 +48,8 @@ public class UserController extends BaseController<User, UserQuery, UserService>
     }
 
     @GetMapping("/getCurrentUser")
-    public User getCurrentUser(@RequestHeader(value = "account", required = false) String account) {
-        if (StrUtil.isEmpty(account)){
-            return null;
-        }
-        return super.service.getByAccount(account);
+    public User getCurrentUser() {
+        return super.service.getCurrentUser();
     }
 
     @PutMapping("/updateByQuery")

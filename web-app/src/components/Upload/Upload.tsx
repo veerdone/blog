@@ -17,7 +17,7 @@ const CustomUpload = () => {
 		sex: false,
 		status: false,
 		telephone: "",
-		userId: 0,
+		userId: "",
 		username: ""
 	});
 	const upload = async (file: RcFile) => {
