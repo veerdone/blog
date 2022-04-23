@@ -12,3 +12,12 @@ declare interface User {
 	status?: boolean,
 	icon?: string
 }
+
+
+export interface UserFocusVo {
+	focusId: string,
+	userId: string,
+	userFocusId: string,
+	focusTime: string,
+	focusUser: User
+}

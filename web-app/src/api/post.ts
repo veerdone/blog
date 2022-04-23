@@ -85,3 +85,14 @@ export function deletePostById(postId: string) {
 		method: "DELETE"
 	})
 }
+
+export function pagePostVo(startPage: number, pageSize: number) {
+	return service({
+		url: "/post/pagePostVo",
+		method: "GET",
+		params: {
+			startPage: startPage,
+			pageSize: pageSize
+		}
+	})
+}

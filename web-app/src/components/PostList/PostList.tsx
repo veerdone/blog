@@ -1,48 +1,30 @@
-import React, {Fragment, useEffect, useImperativeHandle, useState} from "react";
+import React, {Fragment} from "react";
 import ProList from "@ant-design/pro-list";
 import ProSkeleton from '@ant-design/pro-skeleton';
-import {Button, Tag} from "antd";
+import {Button, TablePaginationConfig, Tag} from "antd";
 import {EyeOutlined, LikeOutlined} from "@ant-design/icons";
-import {listPostVo} from "@/api/post";
+import {PaginationConfig} from "antd/es/pagination";
 
-const IconText = ({ icon, text }: { icon: any; text: string | number | undefined }) => (
+const IconText = ({icon, text}: { icon: any; text: string | number | undefined }) => (
 	<span>
-    {React.createElement(icon, { style: { marginRight: 8 } })}
+    {React.createElement(icon, {style: {marginRight: 8}})}
 		{text}
   </span>
 );
 
 type Props = {
-	onRef?: any
+	data: PostVo[],
+	pagination: false | (false & PaginationConfig) | (TablePaginationConfig & false) | (TablePaginationConfig & PaginationConfig) | undefined,
+	loading?: Boolean
 }
 
-const PostList = (props: Props) => {
-	const [list, setList] = useState<PostVo[]>([]);
-	const [loading, setLoading] = useState(false);
-
-	const requestList = async () => {
-		setLoading(true);
-		const {data} = await listPostVo();
-		setList(data.list);
-		setLoading(false);
-	};
-
-	useEffect(() => {
-		requestList();
-	}, []);
-
-	useImperativeHandle(props.onRef, () => {
-		return{
-			setList: setList,
-			setLoading: setLoading
-		}
-	});
+const PostList = ({data, pagination, loading}: Props) => {
 
 	const renderPicture = (record: PostVo): React.ReactNode => {
 		if (record.titlePicture) {
 			return <img src={record.titlePicture} alt={"picture"}/>
 		}
-		return <div style={{backgroundColor: "white"}} />
+		return <div style={{backgroundColor: "white"}}/>
 	};
 
 	const showPost = (record: PostVo, index: number) => {
@@ -59,9 +41,10 @@ const PostList = (props: Props) => {
 		}
 		return (
 			<ProList
-				dataSource={list}
+				dataSource={data}
 				itemLayout="vertical"
 				rowKey="postId"
+				pagination={pagination}
 				metas={{
 					title: {dataIndex: "postTitle"},
 					description: {
@@ -93,10 +76,10 @@ const PostList = (props: Props) => {
 	};
 
 	return (
-        <Fragment>
+		<Fragment>
 			{loadingData()}
-        </Fragment>
-    )
+		</Fragment>
+	)
 };
 
 export default PostList;

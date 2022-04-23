@@ -27,24 +27,24 @@
 
     <sql id="common-select">
         select
-            focus_id, user_idm user_focus_id, focus_time
+            focus_id, user_id, user_focus_id, focus_time
         from
             blog_user_focus
     </sql>
 
     <sql id="common-query">
         <if test="query != null">
-            <if test="focusId != null">
-                focus_id = #{focusId}
+            <if test="query.focusId != null">
+                focus_id = #{query.focusId}
             </if>
-            <if test="userId != null">
-                user_id = #{userId}
+            <if test="query.userId != null">
+                user_id = #{query.userId}
             </if>
-            <if test="userFocusId != null">
-                user_focus_id = #{userFocusId}
+            <if test="query.userFocusId != null">
+                user_focus_id = #{query.userFocusId}
             </if>
-            <if test="focusTime != null">
-                focus_time = #{focusTime}
+            <if test="query.focusTime != null">
+                focus_time = #{query.focusTime}
             </if>
         </if>
     </sql>

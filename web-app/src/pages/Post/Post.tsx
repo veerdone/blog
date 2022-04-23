@@ -7,7 +7,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import {getPostById} from "@/api/post";
 import Comment from "@/components/comment/Comment";
-import {BackTop} from "antd";
+import {Avatar, BackTop, Button, Card} from "antd";
+import {getUserById} from "@/api/user";
 
 
 const Code = {
@@ -19,6 +20,9 @@ const Code = {
 		) : (
 			<code className={className} {...props} />
 		)
+	},
+	img(props: any) {
+		return <img {...props} style={{maxWidth: "100%", maxHeight: 400}}  alt={""}/>
 	}
 };
 
@@ -42,14 +46,21 @@ const Post = () => {
 		updateTime: "",
 		userId: ""
 	});
+	const [author, setAuthor] = useState<any>({});
 	const [loading, setLoading] = useState(false);
 
 	const getPost = async () => {
 		setLoading(true);
 		const {data} = await getPostById(params.id);
 		setPost(data.data);
+		getAuthor(data?.data?.userId);
 		setLoading(false);
 	};
+
+	const getAuthor = async (userId: string) => {
+		const {data} = await getUserById(userId)
+		setAuthor(data?.data);
+	}
 
 	useEffect(() => {
 		getPost();
@@ -65,7 +76,15 @@ const Post = () => {
 			<Helmet>
 				<title>{post.postTitle}</title>
 			</Helmet>
-			<ProCard colSpan={{xs: "0%", sm: "0%", md: "10%", lg: "15%", xl: "20%"}}/>
+			<ProCard colSpan={{xs: "0%", sm: "0%", md: "10%", lg: "15%", xl: "20%"}}>
+				<Card actions={[
+					<Button type={"primary"}>关注</Button>
+				]}>
+					<Card.Meta avatar={<Avatar src={author?.icon} />} title={author?.username}
+								description={post?.createTime + "    " + post?.postViews + "阅读"}
+					/>
+				</Card>
+			</ProCard>
 			<ProCard loading={loading}>
 				<ReactMarkdown components={Code}
 				children={post.postContent} remarkPlugins={[remarkGfm]}/>

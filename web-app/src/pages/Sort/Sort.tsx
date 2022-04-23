@@ -4,14 +4,11 @@ import {Tabs} from "antd";
 import {listPostVoBySortId, listSort} from "@/api/post";
 import PostList from "@/components/PostList/PostList";
 
-export type Ref = {
-	setList: Function
-	setLoading: Function
-}
 
 const Sort = () => {
 	const [sortList, setSortList] = useState<Sort[]>([]);
-	const ref = React.createRef<Ref>();
+	const [postList, setPostList] = useState<PostVo[]>([]);
+	const [loading, setLoading] = useState(false);
 
 	const getSortList = async () => {
 		const {data} = await listSort();
@@ -19,10 +16,10 @@ const Sort = () => {
 	};
 
 	const getPost = async (sortId:string  = "1") => {
-		ref.current?.setLoading(true);
+		setLoading(true);
 		const {data} = await listPostVoBySortId(sortId);
-		ref.current?.setList(data.list);
-		ref.current?.setLoading(false);
+		setPostList(data?.list);
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -44,7 +41,7 @@ const Sort = () => {
 				</Tabs>
 			</ProCard>
 			<ProCard>
-				<PostList onRef={ref} />
+				<PostList  data={postList} pagination={false} loading={loading}/>
 			</ProCard>
 		</ProCard>
 	)

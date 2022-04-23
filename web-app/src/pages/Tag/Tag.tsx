@@ -3,10 +3,12 @@ import {listPostVoByTagId, listTag} from "@/api/post";
 import ProCard from "@ant-design/pro-card";
 import {Tabs} from "antd";
 import PostList from "@/components/PostList/PostList";
-import {Ref} from "@/pages/Sort/Sort";
 
 const Tag = () => {
 	const [tagList, setTagList] = useState<Tag[]>([]);
+	const [loading, setLoading] = useState(false);
+	const [postList, setPostList] = useState<PostVo[]>([]);
+
 	const getTagList = async () => {
 		const {data} = await listTag();
 		setTagList(data.list);
@@ -14,15 +16,15 @@ const Tag = () => {
 
 	useEffect(() => {
 		getTagList();
+		getPost();
 	}, []);
 
-	const ref = React.createRef<Ref>();
 
-	const getPost = async (tagId: string) => {
-		ref.current?.setLoading(true);
+	const getPost = async (tagId: string = "1") => {
+		setLoading(true);
 		const {data} = await listPostVoByTagId(tagId);
-		ref.current?.setList(data.list);
-		ref.current?.setLoading(false);
+		setPostList(data?.list);
+		setLoading(false);
 	};
 
 	const handleClick = (key: string, _: any) => {
@@ -39,7 +41,7 @@ const Tag = () => {
 				</Tabs>
 			</ProCard>
 			<ProCard>
-				<PostList onRef={ref}/>
+				<PostList  data={postList} pagination={false} loading={loading}/>
 			</ProCard>
 		</ProCard>
 	)

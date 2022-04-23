@@ -56,3 +56,10 @@ export function updateUserByQuery(user: any) {
 		data: user
 	})
 }
+
+export function getUserById(userId: string) {
+	return service({
+		url: `/user/getById/${userId}`,
+		method: "GET"
+	})
+}

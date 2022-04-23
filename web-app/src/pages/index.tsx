@@ -16,7 +16,7 @@ export function currentUserInfo() {
 		try {
 			return JSON.parse(cookie);
 		} catch (e) {
-
+			return undefined;
 		}
 	}
 }
