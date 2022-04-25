@@ -12,6 +12,7 @@ export default defineConfig({
 		layout: "top",
 		navTheme: "light",
 		title: "blog",
+		logo: "http://ravu0uf6r.hn-bkt.clouddn.com/logo.svg"
 	},
 	proxy: {
 		"/api": {

@@ -13,6 +13,7 @@ const router = [
 	{path: "/sort", component: "@/pages/Sort/Sort", title: "分类", name: "分类"},
 	{path: "/tag", component: "@/pages/Tag/Tag", title: "标签", name: "标签"},
 	{path: "/focus", component: "@/pages/MyFocus/MyFocus", title: "我的关注", name: "我的关注", wrappers: ["@/auth"]},
+	{path: "/focus-detail/:id", component: "@/pages/MyFocus/MyFocusDetail"},
 	{path: "/login", component: "@/pages/Login/Login", title: "登录"},
 	{path: "/myHome", component: "@/pages/MyHome/MyHome", wrappers: ["@/auth"], routes: [
 			{path: "/myHome/myInfo", component: "@/components/MyInfo/MyInfo", title: "我的信息"},

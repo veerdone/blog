@@ -8,7 +8,7 @@ import {
 	loginByTelephone,
 	insertUser
 } from "@/api/user";
-import {setCookie, setCookieExpire} from "@/util/cookie";
+import {setCookie} from "@/util/cookie";
 import {deleteImage, uploadImage} from "@/api/upload";
 import "./Login.css";
 
