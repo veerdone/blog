@@ -24,6 +24,8 @@ public interface PostMapper extends BaseMapper<Post, PostQuery> {
      */
     void updateViewsByPostId(@Param("postId")Long postId, @Param("count") Integer count);
 
+    List<PostVo> listVoByEntity(Post post);
+
     @Override
     List<Post> pageByQuery(@Param("query") PostQuery query);
 
@@ -32,6 +34,8 @@ public interface PostMapper extends BaseMapper<Post, PostQuery> {
      * @return 文章vo
      */
     List<PostVo> pagePostVo();
+
+
 
     List<PostVo> pagePostVoByQuery(@Param("query")PostQuery query);
 

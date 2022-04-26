@@ -32,12 +32,27 @@ public abstract class BaseServiceImpl<T, Q extends T, M extends BaseMapper<T, Q>
         return this.mapper.getById(id);
     }
 
+    @Override
+    public T getByEntity(T t) {
+        return this.mapper.getByEntity(t);
+    }
+
     public T getByName(Serializable name) {
         return this.mapper.getByName(name);
     }
 
     public List<T> list() {
         return this.mapper.list();
+    }
+
+    @Override
+    public List<T> listByEntity(T t) {
+        return this.mapper.listByEntity(t);
+    }
+
+    @Override
+    public List<T> listByQuery(Q query) {
+        return this.mapper.listByQuery(query);
     }
 
     public List<T> page() {

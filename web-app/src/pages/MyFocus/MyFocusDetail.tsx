@@ -4,6 +4,7 @@ import {Avatar, Descriptions, List, Space} from "antd";
 import {LikeOutlined, EyeOutlined} from "@ant-design/icons";
 import {useParams} from "umi";
 import {getUserById} from "@/api/user";
+import {pagePostVoByQuery} from "@/api/post";
 
 const IconText = ({ icon, text }: any) => (
 	<Space>
@@ -23,8 +24,14 @@ const MyFocusDetail: React.FC = () => {
 		if (data?.status == 200) setUser(data?.data)
 	}
 
+	const getPostList = async () => {
+		const {data} = await pagePostVoByQuery({userId: params?.id});
+		if (data?.status === 200) setPostList(data?.list)
+	}
+
 	useEffect(() => {
 		getUserInfo();
+		getPostList();
 	}, []);
 	return (
 		<ProCard>
@@ -41,6 +48,7 @@ const MyFocusDetail: React.FC = () => {
 					<List dataSource={postList} itemLayout={"vertical"}
 							renderItem={item => (
 								<List.Item
+									onClick={() => window.open(`/post/${item.postId}`)}
 									key={item.postId}
 									actions={[
 										<IconText icon={LikeOutlined} text={item.postLikes} key={"1"}/>,

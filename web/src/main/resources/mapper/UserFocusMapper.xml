@@ -8,7 +8,6 @@
         values(
             #{focusId}, #{userId}, #{userFocusId}, #{focusTime}
         )
-
     </insert>
 
     <delete id="deleteById">
@@ -20,6 +19,13 @@
 
     <select id="listVoByEntity" resultMap="userFocusVo">
         <include refid="common-select"/>
+        <where>
+            <include refid="common-query" />
+        </where>
+    </select>
+
+    <select id="getByEntity" resultMap="userFocus">
+        <include refid="common-select" />
         <where>
             <include refid="common-query" />
         </where>
@@ -38,13 +44,13 @@
                 focus_id = #{query.focusId}
             </if>
             <if test="query.userId != null">
-                user_id = #{query.userId}
+                and user_id = #{query.userId}
             </if>
             <if test="query.userFocusId != null">
-                user_focus_id = #{query.userFocusId}
+                and user_focus_id = #{query.userFocusId}
             </if>
             <if test="query.focusTime != null">
-                focus_time = #{query.focusTime}
+                and focus_time = #{query.focusTime}
             </if>
         </if>
     </sql>

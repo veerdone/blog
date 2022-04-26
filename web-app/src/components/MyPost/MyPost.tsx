@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, message, Modal, Popconfirm, Skeleton, Space, Table, Tag} from 'antd';
-import {deletePostById, listSort, pagePostVoByCurrentUserId} from "@/api/post";
+import {deletePostById, listSort, pagePostVoByQuery} from "@/api/post";
 import {currentUserInfo} from "@/pages";
 import Write from "@/pages/Post/Write";
 
@@ -15,15 +15,19 @@ const MyPost = () => {
 
 	const getPost = async (page: number = pagination.current, pageSize: number = pagination.pageSize) => {
 		setLoading(true);
-		const {data} = await pagePostVoByCurrentUserId(user?.userId, page, pageSize);
-		setPostList(data.list);
+		const {data} = await pagePostVoByQuery({
+			userId: user?.userId,
+			startPage: page,
+			pageSize: pageSize
+		});
+		setPostList(data?.list);
 		setPagination({total: data.total, current: page, pageSize: pageSize});
 		setLoading(false);
 	};
 
 	const getSort = async () => {
 		const {data} = await listSort();
-		setSortList(data.list);
+		setSortList(data?.list);
 	};
 
 	useEffect(() => {
@@ -80,13 +84,14 @@ const MyPost = () => {
 								{status === 0 && <Tag color={"green"}>公开</Tag>}
 								{status === 1 && <Tag color={"blue"} >仅自己可见</Tag>}
 								{status === 2 && <Tag color={"red"} >审核中</Tag>}
+								{status === 3 && <Tag color={"red"}>审核失败</Tag>}
 							</>
 						)} />
 						<Column title={"分类"} dataIndex={"sortId"} key={"sortId"} render={sortId => (
 							<>
 								{sortList.filter(sort=> {return sort.sortId === sortId})
 									.map(sort => {
-										return <Tag color={"default"}>{sort.sortName}</Tag>
+										return <Tag color={"default"} key={sort.sortId}>{sort.sortName}</Tag>
 									})}
 							</>
 						)}/>
@@ -99,8 +104,12 @@ const MyPost = () => {
 						)} />
 						<Column title={"选项"} key={"postId"} render={(_: any, value: any) => (
 							<Space size={"middle"}>
-								<Button type={"primary"} size={"small"} onClick={() => clickChange(value)}>修改</Button>
+								<Button type={"primary"} size={"small"} onClick={() => clickChange(value)}
+										key={"1"}
+								>
+									修改</Button>
 								<Popconfirm title={"是否确认删除?"} okText={"删除"} cancelText={"取消"}
+											key={"2"}
 									onConfirm={() => handleDelete(value.postId)}>
 									<Button danger size={"small"}>删除</Button>
 								</Popconfirm>

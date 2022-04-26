@@ -30,6 +30,11 @@ public abstract class BaseController<T, Q extends T, S extends BaseService<T, Q>
         return this.service.getById(id);
     }
 
+    @PostMapping("/getByEntity")
+    public T getByEntity(@RequestBody T t) {
+        return this.service.getByEntity(t);
+    }
+
     @GetMapping("/getGyName")
     public T getByName(@RequestParam("name") String username) {
         return this.service.getByName(username);
@@ -38,6 +43,16 @@ public abstract class BaseController<T, Q extends T, S extends BaseService<T, Q>
     @GetMapping("/list")
     public List<T> list() {
         return this.service.list();
+    }
+
+    @PostMapping("/listByEntity")
+    public List<T> listByEntity(@RequestBody T t) {
+        return this.service.listByEntity(t);
+    }
+
+    @PostMapping("/listByQuery")
+    public List<T> listByQuery(@RequestBody Q query) {
+        return this.service.listByQuery(query);
     }
 
     @GetMapping("/page")

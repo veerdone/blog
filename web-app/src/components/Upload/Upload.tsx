@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button, Upload} from "antd";
 import {uploadImage, deleteImage as del} from "@/api/upload";
 import {RcFile} from "antd/es/upload";
+import { User } from "@/type/user";
 
 const {Dragger} = Upload;
 

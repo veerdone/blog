@@ -131,6 +131,11 @@
         where post_id = #{id}
     </select>
 
+    <select id="listVoByEntity" resultMap="postVo">
+        <include refid="common-select" />
+        <include refid="query" />
+    </select>
+
     <select id="list" resultMap="post">
         <include refid="common-select" />
     </select>
@@ -227,6 +232,9 @@
             </if>
             <if test="query.postTitle != null and query.postTitle != ''">
                 and post_title = #{query.postTitle}"%"
+            </if>
+            <if test="query.userId != null">
+                and user_id = #{query.userId}
             </if>
             <if test="query.status != null">
                 and status = #{query.status}

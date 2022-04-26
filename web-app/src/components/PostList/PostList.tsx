@@ -30,7 +30,7 @@ const PostList = ({data, pagination, loading}: Props) => {
 	const showPost = (record: PostVo, index: number) => {
 		return {
 			onClick: () => {
-				window.open(`http://localhost:8000/post/${record.postId}`);
+				window.open(`/post/${record.postId}`);
 			}
 		}
 	};

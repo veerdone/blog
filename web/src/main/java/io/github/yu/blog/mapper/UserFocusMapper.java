@@ -11,5 +11,9 @@ import java.util.List;
  * 用户关注mapper
  */
 public interface UserFocusMapper extends BaseMapper<UserFocus, UserFocus> {
+
+    @Override
+    UserFocus getByEntity(@Param("query") UserFocus userFocus);
+
     List<UserFocusVo> listVoByEntity(@Param("query") UserFocus userFocus);
 }

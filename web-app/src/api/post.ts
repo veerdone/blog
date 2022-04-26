@@ -57,18 +57,6 @@ export function listPostVoByTagId(tagId: string) {
 	})
 }
 
-export function pagePostVoByCurrentUserId(userId: string, page:number, pageSize: number) {
-	return service({
-		url: "/post/pagePostVoByUserId",
-		method: "GET",
-		params: {
-			userId: userId,
-			pageSize: pageSize,
-			startPage: page
-		}
-	})
-}
-
 export function updatePostById(post: Post) {
 	return service({
 		url: "/post/updateById",
@@ -94,5 +82,13 @@ export function pagePostVo(startPage: number, pageSize: number) {
 			startPage: startPage,
 			pageSize: pageSize
 		}
+	})
+}
+
+export function pagePostVoByQuery(query: any) {
+	return service({
+		url: "/post/pagePostVoByQuery",
+		method: "POST",
+		data: query
 	})
 }

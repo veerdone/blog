@@ -14,9 +14,15 @@ public interface BaseMapper<T, Q extends T> {
 
     T getById(Serializable id);
 
+    T getByEntity(T t);
+
     T getByName(Serializable name);
 
     List<T> list();
+
+    List<T> listByEntity(T t);
+
+    List<T> listByQuery(Q query);
 
     List<T> page();
 

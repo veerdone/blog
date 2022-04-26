@@ -7,8 +7,10 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import {getPostById} from "@/api/post";
 import Comment from "@/components/comment/Comment";
-import {Avatar, BackTop, Button, Card} from "antd";
+import {Avatar, BackTop, Button, Card, message} from "antd";
 import {getUserById} from "@/api/user";
+import {insert, getByEntity, deleteById} from "@/api/userFocus";
+import {currentUserInfo} from "@/pages";
 
 
 const Code = {
@@ -48,6 +50,9 @@ const Post = () => {
 	});
 	const [author, setAuthor] = useState<any>({});
 	const [loading, setLoading] = useState(false);
+	const [focusInfo, setFocusInfo] = useState<any>({});
+
+	const currentUser = currentUserInfo();
 
 	const getPost = async () => {
 		setLoading(true);
@@ -62,8 +67,36 @@ const Post = () => {
 		setAuthor(data?.data);
 	}
 
+	const focus = async () => {
+		const {status} = await insert({
+			userId: currentUser.userId,
+			userFocusId: author?.userId
+		});
+		if (status == 200) {
+			message.success("操作成功!");
+			isFocus();
+		}
+	}
+
+	const cancelFocus = async () => {
+		const {status} = await deleteById(focusInfo?.focusId);
+		if (status === 200) {
+			message.success("操作成功!");
+			isFocus();
+		}
+	}
+
+	const isFocus = async () => {
+		const {data} = await getByEntity({
+			userId: currentUser.userId,
+			userFocusId: post.userId
+		});
+		setFocusInfo(data.data)
+	}
+
 	useEffect(() => {
 		getPost();
+		isFocus();
 	}, []);
 
 	return (
@@ -78,7 +111,8 @@ const Post = () => {
 			</Helmet>
 			<ProCard colSpan={{xs: "0%", sm: "0%", md: "10%", lg: "15%", xl: "20%"}}>
 				<Card actions={[
-					<Button type={"primary"}>关注</Button>
+					(focusInfo ? <Button type={"primary"} onClick={cancelFocus}>取消关注</Button> :
+						<Button type={"primary"} onClick={focus}>关注</Button>)
 				]}>
 					<Card.Meta avatar={<Avatar src={author?.icon} />} title={author?.username}
 								description={post?.createTime + "    " + post?.postViews + "阅读"}

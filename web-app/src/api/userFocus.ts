@@ -9,3 +9,26 @@ export  function listUserFocusVo(userId: string) {
 		}
 	});
 }
+
+export function deleteById(focusId: string) {
+	return service({
+		url: `/userFocus/deleteById/${focusId}`,
+		method: "DELETE"
+	})
+}
+
+export function insert(userFocus: any) {
+	return service({
+		url: "/userFocus/insert",
+		method: "POST",
+		data: userFocus
+	})
+}
+
+export function getByEntity(userFocus: any) {
+	return service({
+		url: "/userFocus/getByEntity",
+		method: "POST",
+		data: userFocus
+	})
+}

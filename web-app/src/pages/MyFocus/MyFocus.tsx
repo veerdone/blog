@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {currentUserInfo} from "@/pages";
-import {Avatar, Button, List} from "antd";
+import {Avatar, Button, List, message} from "antd";
 import {UserFocusVo} from "@/type/user";
-import {listUserFocusVo} from "@/api/userFocus";
+import {deleteById, listUserFocusVo} from "@/api/userFocus";
 import ProCard from "@ant-design/pro-card";
 import {Link} from "umi";
 
@@ -20,6 +20,14 @@ const MyFocus: React.FC = () => {
 		getFocusList();
 	}, []);
 
+	const cancelFocus = async (focusId: string) => {
+		const {status} = await deleteById(focusId);
+		if (status === 200) {
+			message.success("操作成功!");
+			getFocusList();
+		}
+	};
+
 	return (
 		<ProCard>
 			<ProCard colSpan={"20%"}/>
@@ -30,7 +38,7 @@ const MyFocus: React.FC = () => {
 					  renderItem={item => (
 						  <List.Item actions={[
 							  <Link to={`/focus-detail/${item.userFocusId}`}>查看</Link>,
-							  <Button danger type={"text"}>取消关注</Button>
+							  <Button danger type={"text"} onClick={() => cancelFocus(item.focusId)}>取消关注</Button>
 						  ]}>
 							  <List.Item.Meta avatar={<Avatar src={item?.focusUser?.icon}/>}
 											  title={<span>{item?.focusUser?.username}</span>}

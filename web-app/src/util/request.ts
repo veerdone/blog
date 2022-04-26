@@ -1,5 +1,6 @@
 import axios from "axios";
 import {message} from "antd";
+import Cookies from "js-cookie";
 
 const service = axios.create({
 	baseURL: "/api",
@@ -7,8 +8,9 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(res => {
-	if (res.headers) {
-		res.headers["account"] = "1595557109";
+	const account = Cookies.get("account");
+	if (res.headers && account) {
+		res.headers["account"] = account;
 	}
 	return res
 });

@@ -29,6 +29,7 @@ const Login = () => {
 					if (res.data.status === 200) {
 						message.success("登录成功");
 						setCookie("currentUser", JSON.stringify(res.data.data), {expires: 5});
+						setCookie("account", res.data?.data?.account, {expires: 5})
 						history.push("/");
 					}
 				})
