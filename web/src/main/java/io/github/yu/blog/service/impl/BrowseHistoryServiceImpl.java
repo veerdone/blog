@@ -17,7 +17,7 @@ public class BrowseHistoryServiceImpl extends BaseServiceImpl<BrowseHistory, Bro
 
     @Override
     public void insert(BrowseHistory browseHistory) {
-        BrowseHistory history = super.mapper.getByUserIdAndPostId(browseHistory);
+        BrowseHistory history = super.mapper.getByEntity(browseHistory);
         if (history != null) {
             browseHistory.setLastBrowseTime(LocalDateTime.now());
             super.mapper.updateById(browseHistory);

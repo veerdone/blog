@@ -16,6 +16,10 @@ public class BrowseHistory {
     private Long userId;
     // 文章id
     private Long postId;
+    /**
+     * 文章标题
+     */
+    private String postTitle;
     // 第一次浏览时间
     private LocalDateTime browseTime;
     // 最后浏览时间

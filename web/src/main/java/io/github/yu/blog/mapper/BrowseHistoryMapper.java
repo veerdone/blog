@@ -25,13 +25,6 @@ public interface BrowseHistoryMapper extends BaseMapper<BrowseHistory, BrowseHis
     Integer countByPostIdYesterday(Serializable id);
 
     /**
-     * 根据用户id和博客id获取浏览记录
-     * @param history 浏览记录
-     * @return 查找到的浏览记录
-     */
-    BrowseHistory getByUserIdAndPostId(BrowseHistory history);
-
-    /**
      * 获取昨天被浏览过的博客id
      * @return 昨日被浏览过的博客id
      */
