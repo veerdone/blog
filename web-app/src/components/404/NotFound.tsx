@@ -7,9 +7,11 @@ const NotFound = () => {
 		<Result status={404} title={404}
 				subTitle={"对不起,页面不存在!"}
 				extra={
-					<Link to={"/"}>
-						<Button type={"primary"}>返回首页</Button>
-					</Link>
+					<div>
+						<Link to={"/"}>
+							<Button type={"primary"}>返回首页</Button>
+						</Link>
+					</div>
 				}
 				style={{backgroundColor: "white"}}
 		/>

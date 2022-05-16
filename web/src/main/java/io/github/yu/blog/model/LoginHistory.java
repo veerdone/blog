@@ -1,5 +1,7 @@
 package io.github.yu.blog.model;
 
+import io.github.yu.common.handler.TimeBean;
+import io.github.yu.common.handler.TimeField;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,6 +11,7 @@ import java.time.LocalDateTime;
  * table: login_history
  */
 @Data
+@TimeBean
 public class LoginHistory {
     // 主键id
     private Long id;
@@ -19,6 +22,7 @@ public class LoginHistory {
     // 用户名
     private String username;
     // 登录时间
+    @TimeField(type = LocalDateTime.class)
     private LocalDateTime loginTime;
     // 登录ip
     private String loginIp;

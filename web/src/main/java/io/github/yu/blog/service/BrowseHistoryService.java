@@ -7,9 +7,5 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface BrowseHistoryService extends BaseService<BrowseHistory, BrowseHistory> {
-    List<Long> listPostIdByYesterdayBrowse();
 
-    Integer countByPostId(Serializable id);
-
-    Integer countByPostIdYesterday(Serializable id);
 }

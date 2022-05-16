@@ -13,24 +13,6 @@
         where id = #{id}
     </update>
 
-    <select id="listPostIdByYesterdayBrowse" resultType="java.lang.Long">
-        select distinct post_id from post_browse_history
-        where TO_DAYS(NOW()) - TO_DAYS(browse_time) &lt;= 1
-        and TO_DAYS(NOW()) - TO_DAYS(browse_time) &gt; 0
-    </select>
-
-    <select id="countByPostId" resultType="java.lang.Integer">
-        select count(*) from post_browse_history
-        where post_id = #{id}
-    </select>
-    
-    <select id="countByPostIdYesterday" resultType="Integer">
-        select count(*) from post_browse_history
-        where
-        post_id = #{id}
-        and TO_DAYS(NOW()) - TO_DAYS(browse_time) &lt;= 1
-        and TO_DAYS(NOW()) - TO_DAYS(browse_time) &gt; 0
-    </select>
 
     <select id="getByEntity" resultMap="browseHistory">
         <include refid="select" />

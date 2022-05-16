@@ -12,13 +12,16 @@ export default defineConfig({
 		layout: "top",
 		navTheme: "light",
 		title: "blog",
-		logo: "http://ravu0uf6r.hn-bkt.clouddn.com/logo.svg"
 	},
 	proxy: {
 		"/api": {
 			"target": "http://localhost:8088",
 			"changeOrigin": true,
 			"pathRewrite": {"^/api" : ""}
+		},
+		"/file": {
+			"target": "http://localhost:8088",
+			"changeOrigin": true
 		}
 	},
 	dynamicImport: {}

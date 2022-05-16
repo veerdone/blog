@@ -29,8 +29,11 @@ const Login = () => {
 					if (res.data.status === 200) {
 						message.success("登录成功");
 						setCookie("currentUser", JSON.stringify(res.data.data), {expires: 5});
-						setCookie("account", res.data?.data?.account, {expires: 5})
-						history.push("/");
+						setCookie("account", res.data?.data?.account, {expires: 5});
+						if (!history) return;
+						const {query} = history.location;
+						const {redirect} = query as {redirect: string};
+						history.push(redirect || "/");
 					}
 				})
 			} else if (loginType === "telephone") {

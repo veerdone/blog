@@ -26,7 +26,7 @@ public class PageConfig {
     @Around("pointcut()")
     public Object startPage(ProceedingJoinPoint joinPoint) throws Throwable {
         List<Integer> param = null;
-        if (RequestUtil.getRequestMethod().equals("GET")) {
+        if ("GET".equals(RequestUtil.getRequestMethod())) {
             param = getParamFromHeader();
         } else {
             param = getParamFromBody(joinPoint.getArgs()[0]);

@@ -6,6 +6,7 @@ import {insertPost, listSort, listTag, updatePostById} from "@/api/post";
 import {InputStatus} from "antd/es/_util/statusUtils";
 import "md-editor-rt/lib/style.css";
 import "./write.css";
+import {uploadImage} from "@/api/upload";
 
 const {Option} = Select;
 
@@ -37,7 +38,8 @@ const Write = ({postVo, closeChange, reFlush}: Props) => {
 		getSort();
 		getTag();
 		if (postVo) {
-			setPost({...post,
+			setPost({
+				...post,
 				postTitle: postVo.postTitle,
 				postContent: postVo.postContent,
 				postId: postVo.postId,
@@ -81,6 +83,12 @@ const Write = ({postVo, closeChange, reFlush}: Props) => {
 		setShowFrom(true);
 	};
 
+	const uploadImg = async (files: FileList, callback: (urls: string[]) => void) => {
+		const res = await uploadImage(files[0]);
+		const url: string[] = [res.data.data];
+		callback(url.map(item => item))
+	};
+
 	const [form] = Form.useForm();
 	const handleCancel = () => {
 		setShowFrom(false);
@@ -121,8 +129,8 @@ const Write = ({postVo, closeChange, reFlush}: Props) => {
 				<Input.Group>
 					<Input placeholder={"请输入标题"} style={{width: 'calc(100% - 100px)'}}
 						   onChange={(e) => {
-						   	setPost({...post, postTitle: e.target.value});
-						   	e.target.value.length < 5 ? setStatus("error") : setStatus("");
+							   setPost({...post, postTitle: e.target.value});
+							   e.target.value.length < 5 ? setStatus("error") : setStatus("");
 						   }}
 						   value={post.postTitle}
 						   showCount maxLength={30} status={status}/>
@@ -133,11 +141,18 @@ const Write = ({postVo, closeChange, reFlush}: Props) => {
 				<Editor modelValue={post.postContent} onChange={s => setPost({...post, postContent: s})}
 						theme={"light"} preview={true} toolbars={toolBars}
 						tabWidth={4} showCodeRowNumber={true} previewTheme={"github"}
+						onUploadImg={uploadImg}
+						markedImage={((href, _, desc) => {
+							return `<figure>
+										<img src="${href}" alt="null" style="width: 20%;height: 10%"/>
+										<figcaption>${desc}</figcaption>
+									</figure>`
+						})}
 				/>
 			</ProCard>
 
 			<Modal visible={isShowForm} onCancel={handleCancel} onOk={handleOk}
-				title={"选择分类和标签"}>
+				   title={"选择分类和标签"}>
 				<Form form={form} initialValues={{sortId: post.sortId, tag: post.postTags, status: post.status}}>
 					<Form.Item label={"分类"} name={"sortId"} rules={[{required: true}]}>
 						<Select onChange={value => setPost({...post, sortId: value})}>
@@ -146,7 +161,8 @@ const Write = ({postVo, closeChange, reFlush}: Props) => {
 							})}
 						</Select>
 					</Form.Item>
-					<Form.Item label={"标签"} name={"tag"} rules={[{required: true}, { type: "array",max: 3, message: "最多选择三个标签"}]}>
+					<Form.Item label={"标签"} name={"tag"}
+							   rules={[{required: true}, {type: "array", max: 3, message: "最多选择三个标签"}]}>
 						<Select mode={"multiple"} onChange={value => setPost({...post, postTags: value})}>
 							{tag.map(t => {
 								return <Option value={t.tagId} key={t.tagId}>{t.tagName}</Option>

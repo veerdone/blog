@@ -26,7 +26,6 @@ public class UserController extends BaseController<User, UserQuery, UserService>
 
     @PostMapping("/loginByAccount")
     public User loginByAccount(@RequestBody User user) {
-        System.out.println(user);
         if (StrUtil.isEmpty(user.getAccount())) {
             throw new AccountOrPassErrorException();
         }

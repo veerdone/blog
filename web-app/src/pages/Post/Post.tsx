@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useParams, Helmet} from "umi";
+import {useParams, Helmet, history} from "umi";
 import ProCard from "@ant-design/pro-card";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -11,6 +11,7 @@ import {Avatar, BackTop, Button, Card, message} from "antd";
 import {getUserById} from "@/api/user";
 import {insert, getByEntity, deleteById} from "@/api/userFocus";
 import {currentUserInfo} from "@/pages";
+import {isLogin} from "@/util/cookie";
 
 
 const Code = {
@@ -63,11 +64,15 @@ const Post = () => {
 	};
 
 	const getAuthor = async (userId: string) => {
-		const {data} = await getUserById(userId)
+		const {data} = await getUserById(userId);
 		setAuthor(data?.data);
-	}
+	};
 
 	const focus = async () => {
+		if (!isLogin()) {
+			history.push("/login");
+			return
+		}
 		const {status} = await insert({
 			userId: currentUser.userId,
 			userFocusId: author?.userId
@@ -76,7 +81,7 @@ const Post = () => {
 			message.success("操作成功!");
 			isFocus();
 		}
-	}
+	};
 
 	const cancelFocus = async () => {
 		const {status} = await deleteById(focusInfo?.focusId);
@@ -84,15 +89,17 @@ const Post = () => {
 			message.success("操作成功!");
 			isFocus();
 		}
-	}
+	};
 
 	const isFocus = async () => {
-		const {data} = await getByEntity({
-			userId: currentUser.userId,
-			userFocusId: post.userId
-		});
-		setFocusInfo(data.data)
-	}
+		if (isLogin()) {
+			const {data} = await getByEntity({
+				userId: currentUser.userId,
+				userFocusId: post.userId
+			});
+			setFocusInfo(data.data)
+		}
+	};
 
 	useEffect(() => {
 		getPost();
@@ -111,7 +118,7 @@ const Post = () => {
 			</Helmet>
 			<ProCard colSpan={{xs: "0%", sm: "0%", md: "10%", lg: "15%", xl: "20%"}}>
 				<Card actions={[
-					(focusInfo ? <Button type={"primary"} onClick={cancelFocus}>取消关注</Button> :
+					(isLogin() && focusInfo ? <Button type={"primary"} onClick={cancelFocus}>取消关注</Button> :
 						<Button type={"primary"} onClick={focus}>关注</Button>)
 				]}>
 					<Card.Meta avatar={<Avatar src={author?.icon} />} title={author?.username}
@@ -124,7 +131,7 @@ const Post = () => {
 				children={post.postContent} remarkPlugins={[remarkGfm]}/>
 
 
-				<Comment postId={params.id}/>
+				<Comment postId={params.id!}/>
 			</ProCard>
 			<ProCard colSpan={{xs: "0%", sm: "0%", md: "10%", lg: "15%", xl: "20%"}}/>
 		</ProCard>

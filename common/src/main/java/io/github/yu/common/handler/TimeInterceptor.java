@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Intercepts({@Signature(method = "update", type = Executor.class, args = {MappedStatement.class, Object.class})})
-@Component
+//@Component
 public class TimeInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

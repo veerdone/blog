@@ -26,10 +26,6 @@ public class StatServiceImpl implements StatService {
     @Override
     @Scheduled //todo 输入定时
     public void statPostViews() {
-        List<Long> postIds = browseHistoryService.listPostIdByYesterdayBrowse();
-        postIds.forEach(postId -> {
-            Integer count = browseHistoryService.countByPostIdYesterday(postId);
-            postService.updateViewsByPostId(postId, count);
-        });
+
     }
 }

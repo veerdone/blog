@@ -29,19 +29,4 @@ public class BrowseHistoryServiceImpl extends BaseServiceImpl<BrowseHistory, Bro
         }
         super.mapper.insert(browseHistory);
     }
-
-    @Override
-    public List<Long> listPostIdByYesterdayBrowse() {
-        return super.mapper.listPostIdByYesterdayBrowse();
-    }
-
-    @Override
-    public Integer countByPostId(Serializable id) {
-        return super.mapper.countByPostId(id);
-    }
-
-    @Override
-    public Integer countByPostIdYesterday(Serializable id) {
-        return super.mapper.countByPostIdYesterday(id);
-    }
 }
