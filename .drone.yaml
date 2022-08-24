@@ -3,8 +3,8 @@ type: exec
 name: test
 
 steps:
- - name: mkdir
- commands:
-  - cd /root
-  - mkdir drone_test
-  - echo "hello drone" > drone_test/hello.txt
+- name: greeting
+   commands:
+   - cd /root
+   - mkdir drone_test
+   - echo "hello drone" > drone_test/hello.txt
