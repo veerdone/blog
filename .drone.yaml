@@ -1,0 +1,9 @@
+kind: pipeline
+type: exec
+name: test
+
+steps:
+ - name: mkdir
+ commands:
+  - cd /root
+  - mkdir drone_test
