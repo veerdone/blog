@@ -7,4 +7,4 @@ steps:
   commands:
   - cd /root
   - mkdir drone_test
-  - echo "hello drone!" > drone_test/hello.txt
+  - echo "hello drone!!" > drone_test/hello.txt
