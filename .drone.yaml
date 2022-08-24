@@ -3,7 +3,7 @@ type: exec
 name: test
 
 steps:
-- name: greeting
+- name: test
    commands:
    - cd /root
    - mkdir drone_test
