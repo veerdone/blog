@@ -1,10 +1,10 @@
 kind: pipeline
-type: exec
-name: test
+type: docker
+name: default
 
 steps:
-- name: test
+- name: greeting
+  image: alpine
   commands:
-  - cd /root
-  - mkdir drone_test
-  - echo "hello drone!!" > drone_test/hello.txt
+  - echo hello
+  - echo world
