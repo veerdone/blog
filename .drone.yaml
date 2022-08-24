@@ -4,7 +4,7 @@ name: test
 
 steps:
 - name: test
-   commands:
-   - cd /root
-   - mkdir drone_test
-   - echo "hello drone" > drone_test/hello.txt
+  commands:
+  - cd /root
+  - mkdir drone_test
+  - echo "hello drone" > drone_test/hello.txt
